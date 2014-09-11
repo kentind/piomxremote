@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.omxclient"
+    package="wtf.omxclient"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo" >
         <activity
-            android:name="com.example.omxclient.MainActivity"
+            android:name="omxclient.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,23 +28,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.omxclient.RemoteControl"
+            android:name="omxclient.RemoteControl"
             android:label="Remote"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.example.omxclient.ChooseFile"
+            android:name="omxclient.ChooseFile"
             android:label="ChooseFile"
             android:launchMode="singleTask" >
         </activity>
         <activity
-            android:name="com.example.omxclient.SettingActivity"
+            android:name="omxclient.SettingActivity"
             android:label="@string/title_activity_setting"
             android:launchMode="singleTask" >
         </activity>
         <activity
-            android:name="com.example.omxclient.AddToPlaylist"
+            android:name="omxclient.AddToPlaylist"
             android:label="@string/title_activity_add_to_playlist" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -56,7 +56,7 @@
         </activity>
 
         <service
-            android:name="com.example.omxclient.SocketService"
+            android:name="omxclient.SocketService"
             android:enabled="true"
             android:exported="true" >
         </service>
