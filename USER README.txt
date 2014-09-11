@@ -34,4 +34,4 @@ C'est là que seront enregistrée les playlist. (si tu utilise la fonction "enregi
 
 Pour l'usage de l'appli c'est pas toujours hyper intuitif, tente toujours l'appuie long pour avoir d'autre fonction, tu peux utiliser les boutons volume physique pour monter ou baisser le son.
 
-Enjoy !!
+Enjoy !! :-)
