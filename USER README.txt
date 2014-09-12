@@ -26,7 +26,7 @@ Je crois que c'est tout...
 Sur le tel il y a 3 paramètre a renseigner :
  - l'IP du pi (je pense que ça ne te posera pas de problème)
  - Le port (il est défini dans le fichier remoteServer.py par defaut : 3237 )
- - Le dossier ( /home/pi par defaut ) c'est pas utile de le modifier.
+ - Le dossier ( /home/pi par defaut ) ce n'est pas utile de le modifier.
 
 il faut créer un dossier PLAYLIST dans /home/pi (bien respecter la casse)
 C'est là que seront enregistrée les playlist. (si tu utilise la fonction "enregistrer" dans la playlist) C'est paramétrable dans le fichier remoteServerPlaylist.py
