@@ -41,7 +41,7 @@ C'est là que seront enregistré les playlist. (si tu utilise la fonction "enreg
 
 Installation du client (l'appli android):
 -----------------------------------------
-Rendez vous sur le PlayStore et cherchez piomx
+Rendez vous sur le PlayStore : https://play.google.com/store/apps/details?id=wtf.omxclient
 
 First use :
 -----------
