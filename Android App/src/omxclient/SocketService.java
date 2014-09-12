@@ -1,23 +1,17 @@
 package omxclient;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.InetAddress;
+//import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
-import omxclient.AddToPlaylist.checkServiveUpdate;
-
 import wtf.omxclient.R;
 
-import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -25,7 +19,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -138,7 +131,7 @@ public String encour="0";
 	        //notification.setLatestEventInfo(this, "OMX playlist", text, contentIntent);
 	        notifBuilder.setContentIntent(contentIntent);
 	        notification=notifBuilder.build();
-	        notification.flags = notification.FLAG_AUTO_CANCEL;
+	        notification.flags = Notification.FLAG_AUTO_CANCEL;
 	        // Send the notification.
 	        mNM.notify(NOTIFICATION, notification);
 	    }
@@ -157,7 +150,7 @@ public String encour="0";
 				
 				try {
 					//InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
-					InetAddress serverAddr = InetAddress.getByName("0.0.0.0");
+					//InetAddress serverAddr = InetAddress.getByName("0.0.0.0");
 					
 					socket = new ServerSocket(LISTENERPORT, 0, null);
 					//String debug="";
@@ -172,7 +165,7 @@ public String encour="0";
 							int dureEnCour=0;
 							int dejaLu=0;
 							
-							String MSGparam="";
+							//String MSGparam="";
 							while((r= in.readLine())!=null)
 							{	
 							//	debug+=r+"++";
@@ -214,7 +207,7 @@ public String encour="0";
 									 .addLine((PARAM_LireEnBouble?"[LECTURE EN BOUCLE]":"[Keep after read : "+(PARAM_RemoveAfter?"NON":"OUI")+"]"))
 									 .addLine( ret[2]));*/
 									 notification=notifBuilder.build();
-									 notification.flags = notification.FLAG_ONGOING_EVENT;
+									 notification.flags = Notification.FLAG_ONGOING_EVENT;
 									 mNM.notify(NOTIFICATION, notification);		
 									 lesMorceau.put(Integer.parseInt(ret[1]), ret[2]+g);
 									 
@@ -253,7 +246,7 @@ public String encour="0";
 								 notification=notifBuilder.build();		
 								 //notifBuilder.setVibrate(new long[] {1000,1000,1000,1000,1000});
 								 //notifBuilder.setLights(Color., 3000,3000);
-								 notification.flags = notification.FLAG_AUTO_CANCEL;
+								 notification.flags = Notification.FLAG_AUTO_CANCEL;
 								 //notification.flags |= Notification.FLAG_SHOW_LIGHTS;
 								 mNM.notify(NOTIFICATION, notification);
 							}else{
@@ -327,7 +320,7 @@ public String encour="0";
 					 .setProgress(this.dureTotal,  this.ecoule, false);
 	                    // Displays the progress bar for the first time.
 					 notification=notifBuilder.build();
-					 notification.flags = notification.FLAG_ONGOING_EVENT;
+					 notification.flags = Notification.FLAG_ONGOING_EVENT;
 					 mNM.notify(NOTIFICATION, notification);		
 					 
 					 try {

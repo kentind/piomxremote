@@ -11,10 +11,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import omxclient.ChooseFile.ReadReturnFIleThread;
-import omxclient.MainActivity.ClientThread;
-import omxclient.MainActivity.ReadReturnThread;
-
 import wtf.omxclient.R;
 
 import android.app.Activity;
@@ -30,7 +26,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+
 import android.widget.Toast;
 
 public class RemoteControl extends Activity {
@@ -55,9 +51,9 @@ public class RemoteControl extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        menu.add(Menu.NONE, MENU_FILE, Menu.NONE, "File...");
-        menu.add(Menu.NONE, MENU_PARAM, Menu.NONE, "Parametres");
-        menu.add(Menu.NONE, MENU_PLAYLIST, Menu.NONE, "Playlist");
+        menu.add(Menu.NONE, MENU_FILE, Menu.NONE, getString(R.string.libel_menu_choose_file));
+        menu.add(Menu.NONE, MENU_PARAM, Menu.NONE, getString(R.string.libel_menu_parametre));
+        menu.add(Menu.NONE, MENU_PLAYLIST, Menu.NONE, getString(R.string.libel_menu_playlist));
         return true;
     }
     
@@ -147,9 +143,9 @@ public class RemoteControl extends Activity {
 			            @Override
 			            public void onClick(View view) {
 			            	AlertDialog.Builder builder1 = new AlertDialog.Builder(mm);
-			                builder1.setMessage("Confirmer l'extinction ?");
+			                builder1.setMessage(getString(R.string.remote_confirm_extinction));
 			                builder1.setCancelable(true);
-			                builder1.setPositiveButton("Now",
+			                builder1.setPositiveButton(getString(R.string.remote_choice_now),
 			                        new DialogInterface.OnClickListener() {
 			                    public void onClick(DialogInterface dialog, int id) {
 			                    	skt.setKey("shutdown|NOW");
@@ -157,7 +153,7 @@ public class RemoteControl extends Activity {
 			                        dialog.cancel();
 			                    }
 			                });
-			                builder1.setNeutralButton("Cancel",
+			                builder1.setNeutralButton(getString(R.string.remote_choice_cancel),
 			                        new DialogInterface.OnClickListener() {
 			                    public void onClick(DialogInterface dialog, int id) {
 			                    	skt.setKey("shutdown|CANCEL");
@@ -165,14 +161,14 @@ public class RemoteControl extends Activity {
 			                        dialog.cancel();
 			                    }
 			                });
-			                builder1.setNegativeButton("Later",
+			                builder1.setNegativeButton(getString(R.string.remote_choice_later),
 			                        new DialogInterface.OnClickListener() {
 			                    public void onClick(DialogInterface dialog, int id) {
 			                    	final CharSequence[] items = {"2O minutes", "30 minutes", "45 minutes", "1H","1H30","1H45","2H","3H"};
 			                    	final int[] temps ={20,30,45,60,90,105,120,180};
 
 			                    	AlertDialog.Builder builder = new AlertDialog.Builder(mm);
-			                    	builder.setTitle("Dans combien de temps ?");
+			                    	builder.setTitle(getString(R.string.remote_question_when));
 			                    	builder.setItems(items, new DialogInterface.OnClickListener() {
 			                    	    public void onClick(DialogInterface dialog, int item) {
 			                    	         // Do something with the selection

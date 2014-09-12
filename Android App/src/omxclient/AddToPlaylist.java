@@ -8,19 +8,11 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.SortedSet;
-import java.util.TreeMap;
 import java.util.TreeSet;
-
-import omxclient.ChooseFile.PlayFile;
-import omxclient.ChooseFile.ReadReturnFIleThread;
-import omxclient.RemoteControl.ClientThread;
-import omxclient.RemoteControl.ReadReturnThread;
-import omxclient.RemoteControl.SendKeyThread;
 
 import wtf.omxclient.R;
 
@@ -78,13 +70,13 @@ public class AddToPlaylist extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.add(Menu.NONE, MENU_PARAM_PLAYLIST, Menu.NONE, "Option");
-        menu.add(Menu.NONE, MENU_REMOTE, Menu.NONE, "Remote");
-        menu.add(Menu.NONE, MENU_PARAM, Menu.NONE, "Parametres");
-        menu.add(Menu.NONE, MENU_FILE, Menu.NONE, "File...");
-        menu.add(Menu.NONE, MENU_ARRETE, Menu.NONE, "Arreter la lecture");
-        menu.add(Menu.NONE, MENU_CLEAR, Menu.NONE, "Vider la playlist");
-        menu.add(Menu.NONE, MENU_SAVE, Menu.NONE, "Enregistrer");
+        menu.add(Menu.NONE, MENU_PARAM_PLAYLIST, Menu.NONE, getString(R.string.libel_menu_option));
+        menu.add(Menu.NONE, MENU_REMOTE, Menu.NONE,getString(R.string.libel_menu_remote));
+        menu.add(Menu.NONE, MENU_PARAM, Menu.NONE, getString(R.string.libel_menu_parametre));
+        menu.add(Menu.NONE, MENU_FILE, Menu.NONE, getString(R.string.libel_menu_choose_file));
+        menu.add(Menu.NONE, MENU_ARRETE, Menu.NONE, getString(R.string.libel_menu_stop));
+        menu.add(Menu.NONE, MENU_CLEAR, Menu.NONE, getString(R.string.libel_menu_remove_all));
+        menu.add(Menu.NONE, MENU_SAVE, Menu.NONE, getString(R.string.libel_menu_save_playlist));
         return true;
     }
     
@@ -258,8 +250,9 @@ public class AddToPlaylist extends Activity {
 	 				};
 
 	 				AlertDialog.Builder builder = new AlertDialog.Builder(mm);
-	 				builder.setMessage("Voulez vous retirer ce morceau de la playlist ?").setPositiveButton("Oui", dialogClickListener)
-	 				    .setNegativeButton("Non", dialogClickListener).show();
+	 				builder.setMessage(getString(R.string.playlist_confirm_remove_message))
+	 				.setPositiveButton(getString(R.string.playlist_confirm_remove_postive), dialogClickListener)
+	 				    .setNegativeButton(getString(R.string.playlist_confirm_remove_negative), dialogClickListener).show();
 	 			}
 		 });
 			  
@@ -288,59 +281,16 @@ public class AddToPlaylist extends Activity {
 		    }		 
 	}
 	
-	/*public void OptionParam_old()
-	{
-		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-			    @Override
-			    public void onClick(DialogInterface dialog, int which) {
-			    	SendKeyThread skt=new SendKeyThread("");
-			        switch (which){
-			        case DialogInterface.BUTTON_POSITIVE:			        	
-	 					skt.setKey("SETPARAMPLAYLIST|LIREENBOUCLE=0|REMOVEAFTER=1");
-	 					new Thread(skt).start();		
-			            break;
-
-			        case DialogInterface.BUTTON_NEGATIVE:
-			        	DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-						    @Override
-						    public void onClick(DialogInterface dialog, int which) {
-						    	SendKeyThread skt=new SendKeyThread("");
-						        switch (which){
-						        case DialogInterface.BUTTON_POSITIVE:			        	
-				 					skt.setKey("SETPARAMPLAYLIST|LIREENBOUCLE=1|REMOVEAFTER=0");
-				 					new Thread(skt).start();		
-						            break;
-
-						        case DialogInterface.BUTTON_NEGATIVE:
-						        	skt.setKey("SETPARAMPLAYLIST|LIREENBOUCLE=0|REMOVEAFTER=0");
-				 					new Thread(skt).start();		
-						            break;
-						        }
-						    }
-						};
-
-						AlertDialog.Builder builder = new AlertDialog.Builder(AddToPlaylist.this);
-						builder.setMessage("Lire en boucle ?").setPositiveButton("Oui", dialogClickListener)
-						    .setNegativeButton("Non", dialogClickListener).show();
-			            break;
-			        }
-			    }
-			};
-
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Retirer les élément aprés lecture ?").setPositiveButton("Oui", dialogClickListener)
-			    .setNegativeButton("Non", dialogClickListener).show();
-		
-	}*/
+	
 	
 	public void OptionParam()
 	{
-		String[] lesOption={"Retirer les éléments aprés lecture","Lire en boucle"};
+		String[] lesOption={getString(R.string.playlist_libel_option_remove_after_read),getString(R.string.playlist_libel_option_playloop)};
 		final boolean[] lesCheck= {removeAfterRead,playLoop};
 		//final ArrayList mSelectedItems = new ArrayList();  // Where we track the selected items
 		    AlertDialog.Builder builder = new AlertDialog.Builder(AddToPlaylist.this);
 		    // Set the dialog title
-		    builder.setTitle("Option de la playlist")		    
+		    builder.setTitle(getString(R.string.playlist_box_option_title))		    
 		           .setMultiChoiceItems(lesOption, lesCheck,
 		                      new DialogInterface.OnMultiChoiceClickListener() {
 		               @Override
@@ -366,7 +316,7 @@ public class AddToPlaylist extends Activity {
 		               }
 		           })
 		    // Set the action buttons
-		           .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+		           .setPositiveButton(getString(R.string.playlist_box_option_postive), new DialogInterface.OnClickListener() {
 		               @Override
 		               public void onClick(DialogInterface dialog, int id) {
 		            	   SendKeyThread skt=new SendKeyThread("");
@@ -375,7 +325,7 @@ public class AddToPlaylist extends Activity {
 		 					new Thread(skt).start();	
 		               }
 		           })
-		           .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+		           .setNegativeButton(getString(R.string.playlist_box_option_negative), new DialogInterface.OnClickListener() {
 		               @Override
 		               public void onClick(DialogInterface dialog, int id) {
 		                  // ...
@@ -410,8 +360,9 @@ public class AddToPlaylist extends Activity {
 			};
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Retirer tout les morceaux ?").setPositiveButton("Confirmer", dialogClickListener)
-			    .setNegativeButton("Annuler", dialogClickListener).show();
+			builder.setMessage(getString(R.string.playlist_confirm_remove_all_title))
+			.setPositiveButton(getString(R.string.playlist_confirm_remove_all_postive), dialogClickListener)
+			.setNegativeButton(getString(R.string.playlist_confirm_remove_all_negative), dialogClickListener).show();
 
 	}
 	public void stopPlaylist()
@@ -428,19 +379,19 @@ public class AddToPlaylist extends Activity {
 	public void savePlaylist()
 	{
 		final EditText input = new EditText(this);
-		input.setText("d");
+		input.setText("");
    	 	new AlertDialog.Builder(this)
-   	    .setTitle("Choisir un nom pour la playlist")
-   	    .setMessage("Si une PL du même nom existe déja elle sera remplacé :")
+   	    .setTitle(getString(R.string.playlist_box_save_title))
+   	    .setMessage(getString(R.string.playlist_box_save_message))
    	    .setView(input)
-   	    .setPositiveButton("Enregistrer", new DialogInterface.OnClickListener() {
+   	    .setPositiveButton(getString(R.string.playlist_box_save_postive), new DialogInterface.OnClickListener() {
    	        public void onClick(DialogInterface dialog, int whichButton) {
    	            String value = input.getText().toString(); 
    	            SendKeyThread skt=new SendKeyThread("");
    	            skt.setKey("SAVEPLAYLIST|"+value.replaceAll("/", ""));
    	            new Thread(skt).start();
    	        }
-   	    }).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+   	    }).setNegativeButton(getString(R.string.playlist_box_save_negative), new DialogInterface.OnClickListener() {
    	        public void onClick(DialogInterface dialog, int whichButton) {
    	        	return;
    	        }
@@ -540,10 +491,10 @@ class checkServiveUpdate implements Runnable {
 						 map.put("titre", key+"- "+value);
 						    if(key.equals(mMyService.encour))
 						    {
-						    	map.put("description", "Stop- LECTURE EN COUR...");
+						    	map.put("description", "Stop- "+getString(R.string.playlist_list_lecture_en_cour));
 						    	map.put("img", String.valueOf(R.drawable.bouleverte));			    	
 						    }else{
-						    	map.put("description", "Remove- Click to remove");
+						    	map.put("description", "Remove- "+getString(R.string.playlist_list_click_to_remove));
 						    	map.put("img", String.valueOf(R.drawable.boulejaune));
 						    }
 					  		//	enfin on ajoute cette hashMap dans la arrayList
@@ -552,29 +503,12 @@ class checkServiveUpdate implements Runnable {
 						    maxIdPlaylist=ikey;	 
 					}
 				 
-		/*		  Iterator myVeryOwnIterator = mMyService.lesMorceau.keySet().iterator();
-				  while(myVeryOwnIterator.hasNext()) 
-				  {
-					  //Création d'une HashMap pour insérer les informations du premier item de notre listView
-					  map = new HashMap<String, String>();
-					  String key=(String)myVeryOwnIterator.next();
-					    String value=(String)mMyService.lesMorceau.get(key);
-					    map.put("titre", key+"- "+value);
-					    if(key.equals(mMyService.encour))
-					    {
-					    	map.put("description", "Stop- LECTURE EN COUR...");
-					    	map.put("img", String.valueOf(R.drawable.bouleverte));			    	
-					    }else{
-					    	map.put("description", "Remove- Click to remove");
-					    	map.put("img", String.valueOf(R.drawable.boulejaune));
-					    }
-				  		//	enfin on ajoute cette hashMap dans la arrayList
-					    listRefresh3(map);
-					    idebug++;
-				  }*/
+		
 				 playLoop=mMyService.PARAM_LireEnBouble;
 				 removeAfterRead=mMyService.PARAM_RemoveAfter;
-				 String param=(mMyService.PARAM_LireEnBouble?"[LECTURE EN BOUCLE]":"[Keep after read : "+(mMyService.PARAM_RemoveAfter?"NON":"OUI")+"]");
+				 String param=(mMyService.PARAM_LireEnBouble?"["+getString(R.string.playlist_message_lecture_en_boucle)+"]":
+					 "["+getString(R.string.playlist_message_keep_after_read)+""+
+						 (mMyService.PARAM_RemoveAfter?getString(R.string.no):getString(R.string.yes))+"]");
 				  showToast(idebug+" files in playlist\n"+param);
 				  listRefresh2();
 			}else{

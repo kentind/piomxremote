@@ -29,8 +29,8 @@ public class SettingActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        menu.add(Menu.NONE, MENU_FILE, Menu.NONE, "File..");
-        menu.add(Menu.NONE, MENU_REMOTE, Menu.NONE, "Remote");
+        menu.add(Menu.NONE, MENU_FILE, Menu.NONE, getString(R.string.libel_menu_choose_file));
+        menu.add(Menu.NONE, MENU_REMOTE, Menu.NONE, getString(R.string.libel_menu_remote));
         return true;
     }
     

@@ -12,22 +12,19 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import omxclient.MainActivity.ReadReturnThread;
-import omxclient.RemoteControl.ClientThread;
-import omxclient.RemoteControl.SendKeyThread;
 
 import wtf.omxclient.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
+
 import android.os.Bundle;
-import android.text.Editable;
+
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -68,9 +65,9 @@ public class ChooseFile  extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        menu.add(Menu.NONE, MENU_REMOTE, Menu.NONE, "Remote");
-        menu.add(Menu.NONE, MENU_PARAM, Menu.NONE, "Parametres");
-        menu.add(Menu.NONE, MENU_PLAYALL, Menu.NONE, "Play all");
+        menu.add(Menu.NONE, MENU_REMOTE, Menu.NONE, getString(R.string.libel_menu_remote));
+        menu.add(Menu.NONE, MENU_PARAM, Menu.NONE, getString(R.string.libel_menu_parametre));
+        menu.add(Menu.NONE, MENU_PLAYALL, Menu.NONE, getString(R.string.libel_menu_play_all_files));
         return true;
     }
     
@@ -240,22 +237,22 @@ public class ChooseFile  extends Activity {
 			            	 final EditText input = new EditText(mm);
 			            	 input.setText(OMXOPTION);
 			            	 new AlertDialog.Builder(mm)
-			            	    .setTitle("OMX param")
-			            	    .setMessage("Custom OMX param :")
+			            	    .setTitle(getString(R.string.file_box_onlongclick_title))
+			            	    .setMessage(getString(R.string.file_box_onlongclick_message))
 			            	    .setView(input)
-			            	    .setPositiveButton("set default", new DialogInterface.OnClickListener() {
+			            	    .setPositiveButton(getString(R.string.file_box_onlongclick_positive), new DialogInterface.OnClickListener() {
 			            	        public void onClick(DialogInterface dialog, int whichButton) {
 			            	            String value = input.getText().toString(); 
 			            	            saveOMXOPTION(value);
 			            	            PlayFile pf=new PlayFile(map.get("description"),t[0].trim(),value);
 				 						new Thread(pf).start();
 			            	        }
-			            	    }).setNeutralButton("run once", new DialogInterface.OnClickListener() {
+			            	    }).setNeutralButton(getString(R.string.file_box_onlongclick_neutre), new DialogInterface.OnClickListener() {
 			            	        public void onClick(DialogInterface dialog, int whichButton) {
 			            	        	 PlayFile pf=new PlayFile(map.get("description"),t[0].trim(),input.getText().toString());
 					 						new Thread(pf).start();
 			            	        }
-			            	    }).setNegativeButton("+Playlist", new DialogInterface.OnClickListener() {
+			            	    }).setNegativeButton(getString(R.string.file_box_onlongclick_negative), new DialogInterface.OnClickListener() {
 			            	        public void onClick(DialogInterface dialog, int whichButton) {
 			            	        	PlayFile pf=new PlayFile(map.get("description"),"ADDPLAYLIST",input.getText().toString());
 				 						new Thread(pf).start();

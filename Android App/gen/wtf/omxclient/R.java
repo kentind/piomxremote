@@ -93,31 +93,83 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
-        public static final int hello_world=0x7f060002;
-        public static final int pref_default_display_name=0x7f06000a;
-        public static final int pref_description_social_recommendations=0x7f060008;
+        public static final int file_box_onlongclick_message=0x7f060012;
+        public static final int file_box_onlongclick_negative=0x7f060015;
+        public static final int file_box_onlongclick_neutre=0x7f060014;
+        public static final int file_box_onlongclick_positive=0x7f060013;
+        /**  Message activity parametre 
+ Message activity Choose file 
+         */
+        public static final int file_box_onlongclick_title=0x7f060011;
+        public static final int libel_menu_choose_file=0x7f06000a;
+        public static final int libel_menu_option=0x7f06000c;
+        /**  Les libel des menus 
+         */
+        public static final int libel_menu_parametre=0x7f060008;
+        public static final int libel_menu_play_all_files=0x7f06000e;
+        public static final int libel_menu_playlist=0x7f06000b;
+        public static final int libel_menu_remote=0x7f060009;
+        public static final int libel_menu_remove_all=0x7f06000f;
+        public static final int libel_menu_save_playlist=0x7f060010;
+        public static final int libel_menu_stop=0x7f06000d;
+        public static final int no=0x7f060005;
+        public static final int playlist_box_option_negative=0x7f060021;
+        public static final int playlist_box_option_postive=0x7f060020;
+        public static final int playlist_box_option_title=0x7f06001f;
+        public static final int playlist_box_save_message=0x7f060026;
+        public static final int playlist_box_save_negative=0x7f060028;
+        public static final int playlist_box_save_postive=0x7f060027;
+        public static final int playlist_box_save_title=0x7f060025;
+        public static final int playlist_confirm_remove_all_negative=0x7f060024;
+        public static final int playlist_confirm_remove_all_postive=0x7f060023;
+        public static final int playlist_confirm_remove_all_title=0x7f060022;
+        public static final int playlist_confirm_remove_message=0x7f06001a;
+        public static final int playlist_confirm_remove_negative=0x7f06001c;
+        public static final int playlist_confirm_remove_postive=0x7f06001b;
+        public static final int playlist_libel_option_playloop=0x7f06001e;
+        public static final int playlist_libel_option_remove_after_read=0x7f06001d;
+        public static final int playlist_list_click_to_remove=0x7f060017;
+        /**  Message activity Add to playlist 
+         */
+        public static final int playlist_list_lecture_en_cour=0x7f060016;
+        public static final int playlist_message_keep_after_read=0x7f060019;
+        public static final int playlist_message_lecture_en_boucle=0x7f060018;
+        public static final int pref_default_display_name=0x7f060033;
+        public static final int pref_description_social_recommendations=0x7f060031;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f06000c;
+        public static final int pref_header_data_sync=0x7f060035;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f060006;
+        public static final int pref_header_general=0x7f06002f;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f06000f;
-        public static final int pref_ringtone_silent=0x7f060012;
-        public static final int pref_title_add_friends_to_messages=0x7f06000b;
-        public static final int pref_title_display_name=0x7f060009;
-        public static final int pref_title_new_message_notifications=0x7f060010;
-        public static final int pref_title_ringtone=0x7f060011;
-        public static final int pref_title_social_recommendations=0x7f060007;
-        public static final int pref_title_sync_frequency=0x7f06000d;
-        public static final int pref_title_system_sync_settings=0x7f06000e;
-        public static final int pref_title_vibrate=0x7f060013;
-        public static final int title_activity_add_to_playlist=0x7f060004;
-        public static final int title_activity_setting=0x7f060003;
-        public static final int title_activity_settings=0x7f060005;
+        public static final int pref_header_notifications=0x7f060038;
+        public static final int pref_ringtone_silent=0x7f06003b;
+        public static final int pref_title_add_friends_to_messages=0x7f060034;
+        public static final int pref_title_display_name=0x7f060032;
+        public static final int pref_title_new_message_notifications=0x7f060039;
+        public static final int pref_title_ringtone=0x7f06003a;
+        public static final int pref_title_social_recommendations=0x7f060030;
+        public static final int pref_title_sync_frequency=0x7f060036;
+        public static final int pref_title_system_sync_settings=0x7f060037;
+        public static final int pref_title_vibrate=0x7f06003c;
+        public static final int remote_choice_cancel=0x7f06002b;
+        public static final int remote_choice_later=0x7f06002c;
+        public static final int remote_choice_now=0x7f06002a;
+        /**  Message activity remote 
+         */
+        public static final int remote_confirm_extinction=0x7f060029;
+        public static final int remote_question_when=0x7f06002d;
+        public static final int short_no=0x7f060007;
+        public static final int short_yes=0x7f060006;
+        public static final int title_activity_add_to_playlist=0x7f060003;
+        public static final int title_activity_setting=0x7f060002;
+        public static final int title_activity_settings=0x7f06002e;
+        /**  GLOBAL 
+         */
+        public static final int yes=0x7f060004;
     }
     public static final class style {
         /** 
