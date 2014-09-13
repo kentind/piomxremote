@@ -8,10 +8,6 @@ import socket
 import re
 import shutil
 
-Xtst = CDLL("libXtst.so.6")
-Xlib = CDLL("libX11.so.6")
-dpy = Xtst.XOpenDisplay(0)
-
 def sendKeyCode(keyArg):
     global soundLevel
     global SockPlaylist
@@ -19,53 +15,36 @@ def sendKeyCode(keyArg):
     print "**",keyCode,"**"
     code="o"
     if keyCode=='LEFT' :
-        code = Xlib.XKeysymToKeycode(dpy, Xlib.XStringToKeysym("Left"))
+#ACTION_SEEK_BACK_SMALL
+        code = 19
     elif keyCode=='RIGHT' :
-        code = Xlib.XKeysymToKeycode(dpy, Xlib.XStringToKeysym("Right"))
+#ACTION_SEEK_FORWARD_SMALL
+        code = 20
     elif keyCode=='DOWN' :
-        code = Xlib.XKeysymToKeycode(dpy, Xlib.XStringToKeysym("Down"))
+#ACTION_SEEK_BACK_LARGE
+        code = 21
     elif keyCode=='UP' :
-        code = Xlib.XKeysymToKeycode(dpy, Xlib.XStringToKeysym("Up"))
+# ACTION_SEEK_FORWARD_LARGE
+        code = 22
     elif keyCode=='PLUS' :
-        Xtst.XTestFakeKeyEvent(dpy,Xlib.XKeysymToKeycode (dpy,  Xlib.XStringToKeysym("Shift_L")),True,0)
-        code = Xlib.XKeysymToKeycode(dpy, Xlib.XStringToKeysym("plus"))
+#ACTION_INCREASE_VOLUME
+        code = 18
         soundLevel+=300;
         SockPlaylist.sendall("SETSOUNDLEVEL|"+str(soundLevel)+"\r\n")
     elif keyCode=='MOINS' :
-        code = Xlib.XKeysymToKeycode(dpy, Xlib.XStringToKeysym("minus"))
+#ACTION_DECREASE_VOLUME
+        code = 17
         soundLevel-=300
         SockPlaylist.sendall("SETSOUNDLEVEL|"+str(soundLevel)+"\r\n")
     elif keyCode=='SPACE' :
-        code = Xlib.XKeysymToKeycode(dpy, Xlib.XStringToKeysym("space"))
-    else : 
-        code = Xlib.XKeysymToKeycode(dpy, Xlib.XStringToKeysym(keyCode))
-    print code
-    Xtst.XTestFakeKeyEvent(dpy, code, True, 0)
-    Xtst.XTestFakeKeyEvent(dpy, code, False, 0)
-    if keyCode=='PLUS' :
-        Xtst.XTestFakeKeyEvent(dpy,Xlib.XKeysymToKeycode (dpy,  Xlib.XStringToKeysym("Shift_L")),False,0)
-    Xlib.XFlush(dpy)
-
-
-def SendInput( txt ):
-        for c in txt:
-            sym = Xlib.XStringToKeysym(c)
-            code = Xlib.XKeysymToKeycode(dpy, sym)
-            Xtst.XTestFakeKeyEvent(dpy, code, True, 0)
-            Xtst.XTestFakeKeyEvent(dpy, code, False, 0)
-        Xlib.XFlush(dpy)
-
-def SendKeyPress(key):
-        sym = Xlib.XStringToKeysym(str(key))
-        code = Xlib.XKeysymToKeycode(dpy, sym)
-        Xtst.XTestFakeKeyEvent(dpy, code, True, 0)
-        Xlib.XFlush(dpy)
-
-def SendKeyRelease(key):
-        sym = Xlib.XStringToKeysym(str(key))
-        code = Xlib.XKeysymToKeycode(dpy, sym)
-        Xtst.XTestFakeKeyEvent(dpy, code, False, 0)
-        Xlib.XFlush(dpy)
+#ACTION_PAUSE
+        code = 16
+    elif keyCode=='q' :
+#ACTION_EXIT
+        code = 15
+    s=subprocess.Popen("dbuscontrol.sh action "+str(code), shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    for line in s.stdout.readlines():
+       print str(line)
 
 def SendShutDown(argument) :
         arg=str(argument.strip())
