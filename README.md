@@ -24,12 +24,17 @@ Il faut installer quelques paquets sur le pi :
 
 Pour connaitre la durée des morceaux (hors youtube) :
 ```
-	sudo apt-get install mp3-info 
+	sudo apt-get install mp3info 
 ```
 Pour Streamer les morceau youtube :
 ```
-	sudo apt-get install youtub-dl
+	sudo apt-get install youtube-dl
 ```
+Pour plus de confort ;) :
+```
+	sudo apt-get install xterm
+```
+
 il faut créer un dossier PLAYLIST dans /home/pi :
 ```
 	mkdir /home/pi/PLAYLIST
