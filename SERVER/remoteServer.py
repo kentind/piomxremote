@@ -42,9 +42,12 @@ def sendKeyCode(keyArg):
     elif keyCode=='q' :
 #ACTION_EXIT
         code = 15
-    s=subprocess.Popen("dbuscontrol.sh action "+str(code), shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    for line in s.stdout.readlines():
-       print str(line)
+    try :
+      s=subprocess.Popen("dbuscontrol.sh action "+str(code), shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+      for line in s.stdout.readlines():
+         print str(line)
+    except :
+       print "DBus ErrOr" 
 
 def SendShutDown(argument) :
         arg=str(argument.strip())

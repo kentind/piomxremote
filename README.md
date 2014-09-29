@@ -11,25 +11,22 @@ Prerequis :
 
 Installation serveur :
 ----------------------
-Télècharger les 3 fichiers présents dans le dossier "SERVER
+Télècharger les 4 fichiers présents dans le dossier "SERVER
 Placer les fichiers "youtube" et dbuscontrol.sh dans /usr/bin/
-Lui donner les droit d’exécution :
+Leur donner les droits d’exécution :
 ```
 	chmod +x  /usr/bin/youtube
 	chmod +x  /usr/bin/dbuscontrol.sh
 ```
 Placer les fichiers .py où bon vous semble, il en revanche important de toujours lancer "remoteServerPlaylist.py" AVANT "remoteServer.py".
 
-Il faut installer quelques paquets sur le pi :
 
-Pour connaitre la durée des morceaux (hors youtube) :
-```
-	sudo apt-get install mp3info 
-```
-Pour Streamer les morceau youtube :
+Il faut installer youtube-dl sur le pi Pour Streamer les morceaux youtube :
+
 ```
 	sudo apt-get install youtube-dl
 ```
+
 Pour plus de confort ;) :
 ```
 	sudo apt-get install xterm

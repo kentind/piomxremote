@@ -22,6 +22,18 @@ echo "Duration: $duration"
 echo "Position: $position"
 echo "Paused: $paused"
 ;;
+getduration)
+duration=`dbus-send --print-reply=literal --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Duration`
+[ $? -ne 0 ] && exit 1
+duration="$(awk '{print $2}' <<< "$duration")"
+echo "$duration"
+;;
+getposition)
+position=`dbus-send --print-reply=literal --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Position`
+[ $? -ne 0 ] && exit 1
+position="$(awk '{print $2}' <<< "$position")"
+echo "$position"
+;;
 pause)
 dbus-send --print-reply=literal --session --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Action int32:16 >/dev/null
 ;;

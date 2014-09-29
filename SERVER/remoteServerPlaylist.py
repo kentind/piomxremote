@@ -16,6 +16,7 @@ def isInt(s):
         return False
 
 def clientthreadEXterne():
+    setPostion()
     for cle, valeur in listClient.items() :
        print(cle, valeur)
        sendToClient(cle,3236)
@@ -33,7 +34,8 @@ def sendToClient(ipClient,portClient):
          for key in listParam.keys() :
             SockClient.sendall('param|'+key+'|'+str(listParam[key])+"\r\n")
          #La playlist :
-         tpsEcoule=int(round(time.time()))-TimeEnSecPlay
+         tpsEcoule=TimeEnSecPlay
+#int(round(time.time()))-TimeEnSecPlay
          SockClient.sendall('encour|'+str(idLectureEnCour)+"|"+str(CurrentFileDuration)+"|"+str(tpsEcoule)+"\r\n")
          print 'encour|'+str(idLectureEnCour)+"|"+str(CurrentFileDuration)+"|"+str(tpsEcoule)+"\r\n"
          for key in sorted(playlist.keys()) :
@@ -46,8 +48,8 @@ def sendToClient(ipClient,portClient):
          print e
 		 
 def threadLireFile(paramFile):
-     global TimeEnSecPlay
-     TimeEnSecPlay=int(round(time.time()))
+#     global TimeEnSecPlay
+#     TimeEnSecPlay=int(round(time.time()))
      p=paramFile.split("|")
      if p[0]=='youtube':
         readYoutube(p[1])
@@ -62,6 +64,43 @@ def readFile(leFile,lesparam) :
  print ligne
  subprocess.call(ligne,  shell=True)
  
+def setPostion() :
+   global TimeEnSecPlay
+   TimeEnSecPlay=0
+   try:
+       s = subprocess.Popen('dbuscontrol.sh getposition', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+       du=0
+       for line in s.stdout.readlines():
+          du=line.strip()
+       if(isInt(du)):
+          TimeEnSecPlay=int(round(int(du)/1000000))
+   except Exception, e:
+          print e
+ 
+ 
+def setDurationBus():
+    global CurrentFileDuration
+    CurrentFileDuration=0
+    nbTentative=0
+    while nbTentative<20 and CurrentFileDuration==0:
+       try:
+          s = subprocess.Popen('dbuscontrol.sh getduration', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+          du=0
+          for line in s.stdout.readlines():
+             du=line.strip()
+          if(isInt(du)):
+             CurrentFileDuration=int(round(int(du)/1000000))
+          else:
+             print str(du)+" n'est pas un int"
+             CurrentFileDuration=0
+       except Exception, e:
+          print e
+       nbTentative+=1   
+       time.sleep(2)
+    if CurrentFileDuration!=0 :
+       start_new_thread(clientthreadEXterne,())
+
+
 def setDuration(leFile):
  global CurrentFileDuration
  p=leFile.split("|")
@@ -139,8 +178,9 @@ def next():
      
 	 #on met a jour la dure du morceau eu cour de lecture :
      if(idLectureEnCour!=0):
-        setDuration(playlist[idLectureEnCour])
-	 	
+          start_new_thread(setDurationBus,())
+#          setDuration(playlist[idLectureEnCour])
+
      start_new_thread(clientthreadEXterne,())
      if  endOfList==0:
 	 #si on est pas arrive a la fin de la liste on next tranquilou..
@@ -149,7 +189,7 @@ def next():
      elif endOfList==1 and listParam['LIREENBOUCLE']=='1':
 	 #Sinon si on est en en fin de liste avec l'option "lecture en boucle" on repart au debut
         idLectureEnCour=0
-        next()	
+        next()
 
 def updateParam(param1,param2):
      global listParam
@@ -164,7 +204,7 @@ def readYoutube(leFile) :
  global soundLevel
  lf=leFile.split(":")
  print " WOOOOOOOOOO__"+str(len(lf))+"__________!!!!"
- ligne = 'xterm -bg black -fullscreen -e youtube "'+lf[1].strip()+":"+lf[2].strip()+'" '+str(soundLevel)
+ ligne = 'xterm -bg black -fullscreen -e youtube "'+lf[1].strip()+":"+lf[2].strip()+'" '+soundLevel
  print ligne
  subprocess.call(ligne,  shell=True) 
  
