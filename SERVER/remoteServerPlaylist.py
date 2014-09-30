@@ -204,7 +204,7 @@ def readYoutube(leFile) :
  global soundLevel
  lf=leFile.split(":")
  print " WOOOOOOOOOO__"+str(len(lf))+"__________!!!!"
- ligne = 'xterm -bg black -fullscreen -e youtube "'+lf[1].strip()+":"+lf[2].strip()+'" '+soundLevel
+ ligne = 'xterm -bg black -fullscreen -e youtube "'+lf[1].strip()+":"+lf[2].strip()+'" '+str(soundLevel)
  print ligne
  subprocess.call(ligne,  shell=True) 
  
