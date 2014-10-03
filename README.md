@@ -3,14 +3,23 @@
 
 A powerfull android remote for omx player on raspberry pi
 
-Prerequis :
------------
+##Beginners :
+#####(one step install) 
+
+
+Download the plug and play image :
+http://www.kentind.ovh/
+
+
+##Advanced user :
+
+###Prerequis :
+
 
 1 Raspberry !! 
 1 Téléphone android avec une connexion wifi sur le même réseau que le pi tant qu'à faire !!
 
-Installation serveur :
-----------------------
+###Installation serveur :
 Télècharger les 4 fichiers présents dans le dossier "SERVER
 Placer les fichiers "youtube" et dbuscontrol.sh dans /usr/bin/
 Leur donner les droits d’exécution :
