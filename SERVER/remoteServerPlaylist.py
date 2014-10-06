@@ -32,15 +32,15 @@ def sendToClient(ipClient,portClient):
          SockClient.connect((ipClient,portClient))
          # les param :
          for key in listParam.keys() :
-            SockClient.sendall('param|'+key+'|'+str(listParam[key])+"\r\n")
+            SockClient.sendall('param|'+key+'|'+str(listParam[key]).strip()+"\r\n")
          #La playlist :
          tpsEcoule=TimeEnSecPlay
 #int(round(time.time()))-TimeEnSecPlay
-         SockClient.sendall('encour|'+str(idLectureEnCour)+"|"+str(CurrentFileDuration)+"|"+str(tpsEcoule)+"\r\n")
-         print 'encour|'+str(idLectureEnCour)+"|"+str(CurrentFileDuration)+"|"+str(tpsEcoule)+"\r\n"
+         SockClient.sendall('encour|'+str(idLectureEnCour)+"|"+str(CurrentFileDuration)+"|"+str(tpsEcoule).strip()+"\r\n")
+         print 'encour|'+str(idLectureEnCour)+"|"+str(CurrentFileDuration)+"|"+str(tpsEcoule).strip()+"\r\n"
          for key in sorted(playlist.keys()) :
              print (ipClient,key,playlist[key])
-             SockClient.sendall('item|'+str(key)+'|'+playlist[key]+"\r\n")
+             SockClient.sendall('item|'+str(key)+'|'+playlist[key].strip()+"\r\n")
          SockClient.sendall("OKEND\r\n");
          SockClient.close()
      except Exception, e:
@@ -60,7 +60,7 @@ def threadLireFile(paramFile):
 def readFile(leFile,lesparam) :
 # SendKill()
  global soundLevel
- ligne = 'xterm -bg black -fullscreen -e omxplayer '+lesparam+' --vol '+str(soundLevel)+'  "'+leFile+'"'
+ ligne = 'xterm -bg black -fg black -fullscreen -e omxplayer '+lesparam+' --vol '+str(soundLevel)+'  "'+leFile+'"'
  print ligne
  subprocess.call(ligne,  shell=True)
  
@@ -204,7 +204,7 @@ def readYoutube(leFile) :
  global soundLevel
  lf=leFile.split(":")
  print " WOOOOOOOOOO__"+str(len(lf))+"__________!!!!"
- ligne = 'xterm -bg black -fullscreen -e youtube "'+lf[1].strip()+":"+lf[2].strip()+'" '+str(soundLevel)
+ ligne = 'xterm -bg black  -fg black -fullscreen -e youtube "'+lf[1].strip()+":"+lf[2].strip()+'" '+str(soundLevel)
  print ligne
  subprocess.call(ligne,  shell=True) 
  

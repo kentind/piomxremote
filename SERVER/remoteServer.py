@@ -100,13 +100,13 @@ def readsh(leFile) :
 
 def readFile(leFile,lesParam) :
  SendKill()
- ligne = 'xterm -bg black -fullscreen -e omxplayer '+lesParam+' "'+leFile+'"'
+ ligne = 'xterm -bg black  -fg black -fullscreen -e omxplayer '+lesParam+' "'+leFile+'"'
  print ligne
  subprocess.Popen(ligne,  shell=True)
 
 def readYoutube(leFile) :
  SendKill()
- ligne = 'xterm -bg black -fullscreen -e youtube "'+leFile+'"'
+ ligne = 'xterm -bg black  -fg black -fullscreen -e youtube "'+leFile+'"'
  print ligne
  subprocess.Popen(ligne,  shell=True)
  
@@ -191,6 +191,14 @@ soundLevel=-2000
 # On est a l'ecoute d'une seule et unique connexion :
 Sock.listen(10)
 
+#Welcome sound :
+try :
+   if os.path.isdir("/home/pi/WelcomeSound/") :
+      time.sleep(2)
+      SockPlaylist.sendall("PLAYALL|/home/pi/WelcomeSound/|-o both\r\n")
+except Exception, e:
+   print e
+   
 while 1:
    # Le script se stoppe ici jusqu'a ce qu'il y ait connexion :
    client, adresse = Sock.accept() # accepte les connexions de l'exterieur
