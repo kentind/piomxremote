@@ -12,6 +12,8 @@
 - use the ID² 
 - make a little remote in bottom on each activity
 - show the progress bar on each activity (inside little remote). Use this progress bar to forward.
+- Save the last saved playslist name.
+- propose the last used name one the "save as" box
 
 ###Play store :
 - add 7inch screen shot (Fr)
