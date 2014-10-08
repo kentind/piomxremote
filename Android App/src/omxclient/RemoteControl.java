@@ -33,7 +33,7 @@ public class RemoteControl extends Activity {
 	
 	private Socket socket;
 
-	private  int SERVERPORT = 3234;
+	private  int SERVERPORT = 3237;
 	private String SERVER_IP = "192.168.0.31";
 	
 	private PrintWriter out = null;
@@ -80,7 +80,7 @@ public class RemoteControl extends Activity {
     {
     	SharedPreferences sharedPref =this.getSharedPreferences("OMXclient",Context.MODE_PRIVATE);
 		this.SERVER_IP=sharedPref.getString("IP", "192.168.0.1");
-		this.SERVERPORT=sharedPref.getInt("PORT", 3234);
+		this.SERVERPORT=sharedPref.getInt("PORT", 3237);
     }
     
     

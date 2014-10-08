@@ -1,4 +1,4 @@
-###Server Side
+﻿###Server Side
 - send the needed video quality to youtube script
 - Send "status" : is pause or not.... and transfer new value when status change.
 - secure transfer : send an ID² (time python when first line was send ?).
@@ -12,6 +12,7 @@
 - use the ID² 
 - make a little remote in bottom on each activity
 - show the progress bar on each activity (inside little remote). Use this progress bar to forward.
+- Translate in most language  
 
 ###In a perfect world :
 - share all video/music url and not only youtube url

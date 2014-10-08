@@ -19,7 +19,7 @@ public class SettingActivity extends Activity {
 	public static final int MENU_REMOTE = Menu.FIRST + 1;
 	public static final int MENU_FILE = Menu.FIRST ;
 	
-	private  int SERVERPORT = 3234;
+	private  int SERVERPORT = 3237;
 	private String SERVER_IP = "192.168.0.31";
 	String docAlister="";
 	
@@ -78,7 +78,7 @@ public class SettingActivity extends Activity {
     {
     	SharedPreferences sharedPref =this.getSharedPreferences("OMXclient",Context.MODE_PRIVATE);
 		this.SERVER_IP=sharedPref.getString("IP", "192.168.0.1");
-		this.SERVERPORT=sharedPref.getInt("PORT", 3234);
+		this.SERVERPORT=sharedPref.getInt("PORT", 3237);
 		this.docAlister= sharedPref.getString("savedTree", "/home");
     }
 	

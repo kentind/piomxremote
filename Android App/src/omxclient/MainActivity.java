@@ -28,7 +28,7 @@ public class MainActivity extends Activity  {
 	
 	
 	
-	private  int SERVERPORT = 3234;
+	private  int SERVERPORT = 3237;
 	private   String SERVER_IP = "192.168.0.31";
 	
 	private PrintWriter out = null;
@@ -50,7 +50,7 @@ public class MainActivity extends Activity  {
 		
 		SharedPreferences sharedPref =this.getSharedPreferences("OMXclient",Context.MODE_PRIVATE);
 		this.SERVER_IP= sharedPref.getString("IP", "192.168.0.1");
-		this.SERVERPORT=  sharedPref.getInt("PORT", 3234);
+		this.SERVERPORT=  sharedPref.getInt("PORT", 3237);
 		
 		cd= new ConnectionDetector(this);
 		if(cd.isConnectingToInternet())

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">OMXclient</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_add_to_playlist">Add To Playlist</string>
+    
+    <!-- GLOBAL -->
+	<string name="yes">Oui</string>
+	<string name="no">Non</string>
+	<string name="short_yes">O</string>
+	<string name="short_no">N</string>
+	<string name="waiting">En attente</string>
+	<string name="loading">Chargement</string>
+	<string name="endplaylist">Lecture terminé</string>
+	<string name="elapsed">Ecoulé</string>
+	
+	
+	<!-- Les libel des menus -->
+	<string name="libel_menu_parametre">Parametres</string>
+	<string name="libel_menu_remote">Remote</string>
+	<string name="libel_menu_choose_file">File explorer</string>
+	<string name="libel_menu_playlist">Playlist</string>
+	<string name="libel_menu_option">Options</string>
+	<string name="libel_menu_stop">Arreter la lecture</string>
+	<string name="libel_menu_play_all_files">Lire tout</string>
+	<string name="libel_menu_remove_all">Vider la playlist</string>
+	<string name="libel_menu_save_playlist">Enregistrer</string>
+	
+	<!-- Message activity parametre -->
+	
+	
+	<!-- Message activity Choose file -->
+	<string name="file_box_onlongclick_title">OMX param</string>
+	<string name="file_box_onlongclick_message">Custom OMX param :</string>
+	<string name="file_box_onlongclick_positive">set default</string>
+	<string name="file_box_onlongclick_neutre">run once</string>
+	<string name="file_box_onlongclick_negative">+Playlist</string>
+		
+	<!-- Message activity Add to playlist -->
+	<string name="playlist_list_lecture_en_cour">LECTURE EN COUR...</string>
+	<string name="playlist_list_click_to_remove">Click to remove</string>
+	
+	<string name="playlist_message_lecture_en_boucle">LECTURE EN BOUCLE</string>
+	<string name="playlist_message_keep_after_read">Keep after read : </string>
+	
+		
+	<string name="playlist_confirm_remove_message">Voulez vous retirer ce morceau de la playlist ?</string>
+	<string name="playlist_confirm_remove_postive">Oui</string>
+	<string name="playlist_confirm_remove_negative">Non</string>	
+	
+	<string name="playlist_libel_option_remove_after_read">Retirer les éléments aprés lecture</string>
+	<string name="playlist_libel_option_playloop">Lire en boucle</string>
+	
+	<string name="playlist_box_option_title">Option de la playlist</string>
+	<string name="playlist_box_option_postive">Valider</string>
+	<string name="playlist_box_option_negative">Annuler</string>
+	
+	<string name="playlist_confirm_remove_all_title">Retirer tout les morceaux ?</string>
+	<string name="playlist_confirm_remove_all_postive">Confirmer</string>
+	<string name="playlist_confirm_remove_all_negative">Annuler</string>
+	
+	<string name="playlist_box_save_title">Choisir un nom pour la playlist</string>
+	<string name="playlist_box_save_message">Si une PL du même nom existe déja elle sera remplacé :</string>
+	<string name="playlist_box_save_postive">Enregistrer</string>
+	<string name="playlist_box_save_negative">Annuler</string>
+	
+	<!-- Message activity remote -->
+	<string name="remote_confirm_extinction">Confirmer l\'extinction ?</string>
+	<string name="remote_choice_now">Now</string>
+	<string name="remote_choice_cancel">Cancel</string>
+	<string name="remote_choice_later">Later</string>
+	<string name="remote_question_when">Dans combien de temps ?</string>
+	
+	
+	
+</resources>

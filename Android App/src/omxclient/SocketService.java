@@ -112,7 +112,7 @@ public String encour="0";
 	     */
 	    private void showNotification() {
 	        // In this sample, we'll use the same text for the ticker and the expanded notification
-	        CharSequence text ="En attente...";
+	        CharSequence text =getString(R.string.waiting)+"...";
 
 	        // Set the icon, scrolling text and timestamp
 	        // notification = new Notification(R.drawable.bouleverte, text, System.currentTimeMillis()); // new Notification(R.drawable.stat_sample, text, System.currentTimeMillis());
@@ -197,10 +197,10 @@ public String encour="0";
 									}
 									 notifBuilder.setContentTitle(titreEncour)
 									 .setTicker(titreEncour)
-							         .setContentText("Chargement...")
+							         .setContentText(getString(R.string.loading)+"...")
 							         .setSmallIcon(R.drawable.bouleverte)
 							         .setNumber(Integer.parseInt(ret[1]))
-							         .setContentInfo((PARAM_LireEnBouble?"[LECTURE EN BOUCLE]":"[Keep after read : "+(PARAM_RemoveAfter?"NON":"OUI")+"]")) ;
+							         .setContentInfo((PARAM_LireEnBouble?"[LECTURE EN BOUCLE]":"[Keep after read : "+(PARAM_RemoveAfter?getString(R.string.no):getString(R.string.yes))+"]")) ;
 							         //.setSubText((PARAM_LireEnBouble?"[LECTURE EN BOUCLE]":"[Keep after read : "+(PARAM_RemoveAfter?"NON":"OUI")+"]")) ;
 									/* notifBuilder.setStyle( new NotificationCompat.InboxStyle()
 									 .setBigContentTitle(titre[titre.length-1])
@@ -237,9 +237,9 @@ public String encour="0";
 							//	PendingIntent contentIntent = PendingIntent.getActivity(SocketService.this, 0, new Intent(SocketService.this,AddToPlaylist.class), 0);
 								// notification.setLatestEventInfo(SocketService.this, "OMX playlist", "Lecture terminé... "+(PARAM_LireEnBouble?"[LECTURE EN BOUCLE]":"[Keep after read : "+(PARAM_RemoveAfter?"NON":"OUI")+"]"), contentIntent);
 								 notifBuilder.setContentTitle("OMX playlist")
-								 .setTicker("Lecture terminé...")
-						         .setContentText( "Lecture terminé... ")
-						         .setContentInfo((PARAM_LireEnBouble?"[LECTURE EN BOUCLE]":"[Keep after read : "+(PARAM_RemoveAfter?"NON":"OUI")+"]")) 
+								 .setTicker(getString(R.string.endplaylist)+"...")
+						         .setContentText( getString(R.string.endplaylist)+"...")
+						         .setContentInfo((PARAM_LireEnBouble?"["+getString(R.string.playlist_message_lecture_en_boucle)+"]":"[Keep after read : "+(PARAM_RemoveAfter?getString(R.string.no):getString(R.string.yes))+"]")) 
 						         //.setSubText((PARAM_LireEnBouble?"[LECTURE EN BOUCLE]":"[Keep after read : "+(PARAM_RemoveAfter?"NON":"OUI")+"]")) 
 						         .setSmallIcon(R.drawable.boulejaune).setProgress(0,0,false);
 
@@ -316,7 +316,7 @@ public String encour="0";
 					 this.ecoule=Math.round(TimeUnit.MILLISECONDS.toSeconds( SystemClock.elapsedRealtime()))-this.realTimeStart_second;
 					 this.ecoule=this.ecoule>this.dureTotal?this.dureTotal:this.ecoule;
 					 
-					 notifBuilder.setContentText("Ecoulé : "+Seconde_tohms(this.ecoule)+" / "+Seconde_tohms(this.dureTotal))
+					 notifBuilder.setContentText(getString(R.string.elapsed)+" : "+Seconde_tohms(this.ecoule)+" / "+Seconde_tohms(this.dureTotal))
 					 .setProgress(this.dureTotal,  this.ecoule, false);
 	                    // Displays the progress bar for the first time.
 					 notification=notifBuilder.build();
