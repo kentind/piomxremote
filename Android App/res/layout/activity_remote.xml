@@ -1,16 +1,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:gravity="center"
     android:orientation="vertical" >
 
     <TableLayout
-        android:layout_width="fill_parent"
+        android:layout_width= "fill_parent"
 	    android:layout_height="wrap_content"
+	     android:gravity="center"
         android:layout_weight="1" >
         
          <TableRow
-            android:id="@+id/tableRow0"
-             android:layout_weight="1" >
+             android:id="@+id/tableRow0"
+             android:layout_weight="1"
+             android:layout_width="fill_parent"
+             android:gravity="center_horizontal" >
              
              <Button
         	        android:id="@+id/butGoFile"
@@ -32,9 +36,9 @@
         </TableRow>
 
         <TableRow
-             android:layout_weight="1"
             android:id="@+id/tableRow1"
-            	    >
+            android:layout_weight="1"
+            android:gravity="center" >
 
             <Button
                 android:layout_column="0"
@@ -56,20 +60,25 @@
 
         <TableRow
             android:id="@+id/tableRow2"
-             android:layout_weight="1" >
+            android:layout_width="match_parent"
+                android:layout_weight="1"
+                
+            android:gravity="center_horizontal" >
 
             	<Button
-        	        android:id="@+id/butPause"
-       		        android:layout_width="fill_parent"
-            	 android:layout_height="fill_parent"
-    		         android:layout_span="5"
+            	    android:id="@+id/butPause"
+            	    android:layout_width="fill_parent"
+            	    android:layout_height="fill_parent"
+            	   
+            	    android:layout_span="5"
             	    android:text="play/pause" />
 					
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow3"
-             android:layout_weight="1" >
+            android:layout_weight="1"
+            android:gravity="center" >
 
             <Button
                 android:id="@+id/butRemb6000"
@@ -108,30 +117,32 @@
                 android:text="->->" />
 
         </TableRow>
-		<TableRow
+
+        <TableRow
             android:id="@+id/tableRow4"
-             android:layout_weight="1" >
+            android:layout_weight="1"
+            android:gravity="center" >
 
-            	<Button
+            <Button
                 android:id="@+id/butStop"
-                 android:layout_column="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:layout_span="3"
+                android:layout_span="3"
                 android:text="Stop" />
-					
-        </TableRow>
-       <TableRow
-            android:id="@+id/tableRow5"
-             android:layout_weight="1" >
 
-            	<Button
-                android:id="@+id/butKill"
-                 android:layout_column="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 android:layout_span="3"
-                android:text="Kill OMX" />
+        </TableRow>
+
+       <TableRow
+           android:id="@+id/tableRow5"
+           android:layout_weight="1"
+           android:gravity="center" >
+
+           <Button
+               android:id="@+id/butKill"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_span="3"
+               android:text="Kill OMX" />
 					
         </TableRow>
     </TableLayout>

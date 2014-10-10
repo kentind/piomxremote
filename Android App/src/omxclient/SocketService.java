@@ -37,13 +37,15 @@ public class SocketService extends Service {
 	 Notification notification;
 	 ShowProgressInNotif shoProgress=null;
 	 ClientThread ct;
-public String encour="0";
+	 public boolean isPause=false;
+	 public String encour="0";
 	 
 	 public  int LISTENERPORT = 3236;
 		public String SERVER_IP = "192.168.0.31";
 		
 		public boolean PARAM_LireEnBouble=false;
 		public boolean PARAM_RemoveAfter=true;
+		public String PARAM_YT_quality="best";
 	    // Unique Identification Number for the Notification.
 	    // We use it on Notification start, and to cancel it.
 	    private int NOTIFICATION = 667576576;//R.string.socket_service_started;
@@ -224,7 +226,11 @@ public String encour="0";
 										PARAM_LireEnBouble=ret[2].trim().equals("1");
 									else if(ret[1].equals("REMOVEAFTER"))
 										PARAM_RemoveAfter=ret[2].trim().equals("1");
-									
+									else if(ret[1].equals("YOUTUBEQUALITY"))
+										PARAM_YT_quality=ret[2].trim();
+								}else if(ret[0].equals("status")){
+									if(ret[1].equals("ISPAUSE"))
+										isPause=ret[2].equals("1");
 								}else{
 									if (r.trim().equals("OKEND"))
 										break;
@@ -234,7 +240,7 @@ public String encour="0";
 							{
 								if(shoProgress!=null)
 									shoProgress.stop();
-							//	PendingIntent contentIntent = PendingIntent.getActivity(SocketService.this, 0, new Intent(SocketService.this,AddToPlaylist.class), 0);
+								//	PendingIntent contentIntent = PendingIntent.getActivity(SocketService.this, 0, new Intent(SocketService.this,AddToPlaylist.class), 0);
 								// notification.setLatestEventInfo(SocketService.this, "OMX playlist", "Lecture terminé... "+(PARAM_LireEnBouble?"[LECTURE EN BOUCLE]":"[Keep after read : "+(PARAM_RemoveAfter?"NON":"OUI")+"]"), contentIntent);
 								 notifBuilder.setContentTitle("OMX playlist")
 								 .setTicker(getString(R.string.endplaylist)+"...")
@@ -254,7 +260,7 @@ public String encour="0";
 									shoProgress.stop();
 								if(dureEnCour!=0)
 								{
-									shoProgress= new ShowProgressInNotif(dureEnCour, dejaLu);
+									shoProgress= new ShowProgressInNotif(dureEnCour, dejaLu,isPause);
 									new Thread(shoProgress).start();
 								}	
 							}
@@ -287,13 +293,16 @@ public String encour="0";
 	   
 	    	public int ecoule=0;
 	    	public boolean continu=true;
+	    	public boolean ispause=false;
+	    	
 	    	
 	    	private int realTimeStart_second=0;
 	    	
-	    	public ShowProgressInNotif(int dureTotal,int startAs)
+	    	public ShowProgressInNotif(int dureTotal,int startAs,boolean ispause)
 	    	{
 	    		this.dureTotal=dureTotal;
 	    		this.ecoule=startAs;
+	    		this.ispause=ispause;
 	    		this.realTimeStart_second= Math.round(TimeUnit.MILLISECONDS.toSeconds(SystemClock.elapsedRealtime()))-startAs;
 	    	}
 	    	public void stop()
@@ -311,18 +320,22 @@ public String encour="0";
 	    	}
 			@Override
 			public void run() {
+				int test=0;
 				while(this.continu && this.ecoule<=this.dureTotal)
 				{
+					if(!ispause || test==0)
+					{
+						test=1;
 					 this.ecoule=Math.round(TimeUnit.MILLISECONDS.toSeconds( SystemClock.elapsedRealtime()))-this.realTimeStart_second;
 					 this.ecoule=this.ecoule>this.dureTotal?this.dureTotal:this.ecoule;
 					 
-					 notifBuilder.setContentText(getString(R.string.elapsed)+" : "+Seconde_tohms(this.ecoule)+" / "+Seconde_tohms(this.dureTotal))
+					 notifBuilder.setContentText((ispause?"[pause]":"")+getString(R.string.elapsed)+" : "+Seconde_tohms(this.ecoule)+" / "+Seconde_tohms(this.dureTotal))
 					 .setProgress(this.dureTotal,  this.ecoule, false);
 	                    // Displays the progress bar for the first time.
 					 notification=notifBuilder.build();
 					 notification.flags = Notification.FLAG_ONGOING_EVENT;
 					 mNM.notify(NOTIFICATION, notification);		
-					 
+					}
 					 try {
                          Thread.sleep(1000);
                   } catch (InterruptedException e) {

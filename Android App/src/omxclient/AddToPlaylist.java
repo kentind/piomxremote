@@ -8,14 +8,12 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import wtf.omxclient.R;
-
 import android.os.Bundle;
 import android.os.IBinder;
 import android.app.Activity;
@@ -43,6 +41,7 @@ public class AddToPlaylist extends Activity {
 
 	private  int SERVERPORT = 3237;
 	private String SERVER_IP = "192.168.0.31";
+	private String LAST_PL_NAME="d";
 	
 	private PrintWriter out = null;
     private BufferedReader in = null;
@@ -53,6 +52,7 @@ public class AddToPlaylist extends Activity {
     
     public boolean removeAfterRead=false;
     public boolean playLoop=false;
+    public String ytQuality="best";
     
     public static final int MENU_FILE = Menu.FIRST + 3;
 	public static final int MENU_PARAM = Menu.FIRST + 2;
@@ -116,6 +116,7 @@ public class AddToPlaylist extends Activity {
     	SharedPreferences sharedPref =this.getSharedPreferences("OMXclient",Context.MODE_PRIVATE);
 		this.SERVER_IP=sharedPref.getString("IP", "192.168.0.1");
 		this.SERVERPORT=sharedPref.getInt("PORT", 3237);
+		this.LAST_PL_NAME=sharedPref.getString("LASTPLAYLISTNAME", "d");
     }
     
 	public void ifIntent()
@@ -285,8 +286,8 @@ public class AddToPlaylist extends Activity {
 	
 	public void OptionParam()
 	{
-		String[] lesOption={getString(R.string.playlist_libel_option_remove_after_read),getString(R.string.playlist_libel_option_playloop)};
-		final boolean[] lesCheck= {removeAfterRead,playLoop};
+		String[] lesOption={getString(R.string.playlist_libel_option_remove_after_read),getString(R.string.playlist_libel_option_playloop),getString(R.string.playlist_libel_option_forceytqualitytoworth)};
+		final boolean[] lesCheck= {removeAfterRead,playLoop,ytQuality.equals("worst")};
 		//final ArrayList mSelectedItems = new ArrayList();  // Where we track the selected items
 		    AlertDialog.Builder builder = new AlertDialog.Builder(AddToPlaylist.this);
 		    // Set the dialog title
@@ -321,7 +322,8 @@ public class AddToPlaylist extends Activity {
 		               public void onClick(DialogInterface dialog, int id) {
 		            	   SendKeyThread skt=new SendKeyThread("");
 		            	   showToast("SETPARAMPLAYLIST|LIREENBOUCLE="+(lesCheck[1]?"1":"0")+"|REMOVEAFTER="+(lesCheck[0]?"1":"0")); 
-		            	   skt.setKey("SETPARAMPLAYLIST|LIREENBOUCLE="+(lesCheck[1]?"1":"0")+"|REMOVEAFTER="+(lesCheck[0]?"1":"0"));
+		            	   skt.setKey("SETPARAMPLAYLIST|LIREENBOUCLE="+(lesCheck[1]?"1":"0")+"|REMOVEAFTER="+(lesCheck[0]?"1":"0")+"|YOUTUBEQUALITY="+(lesCheck[2]?"worst":"best"));
+		            	   
 		 					new Thread(skt).start();	
 		               }
 		           })
@@ -344,7 +346,7 @@ public class AddToPlaylist extends Activity {
 			        switch (which){
 			        case DialogInterface.BUTTON_POSITIVE:
 			    		SendKeyThread skt=new SendKeyThread("");
-			    		skt.setKey("SETPARAMPLAYLIST|LIREENBOUCLE=0|INUTILE=0");
+			    		skt.setKey("SETPARAMPLAYLIST|LIREENBOUCLE=0|INUTILE=0|INUTILE=0");
 			    		new Thread(skt).start();
 			    		skt.setKey("REMOVEPLAYLIST|ALL");
 			    		new Thread(skt).start();
@@ -368,7 +370,7 @@ public class AddToPlaylist extends Activity {
 	public void stopPlaylist()
 	{
 		SendKeyThread skt=new SendKeyThread("");
-		skt.setKey("SETPARAMPLAYLIST|LIREENBOUCLE=0|INUTILE=0");
+		skt.setKey("SETPARAMPLAYLIST|LIREENBOUCLE=0|INUTILE=0|INUTILE=0");
 		new Thread(skt).start();
 		skt.setKey("GOTOPLAYLIST|"+(maxIdPlaylist+10));
 		new Thread(skt).start();
@@ -379,7 +381,7 @@ public class AddToPlaylist extends Activity {
 	public void savePlaylist()
 	{
 		final EditText input = new EditText(this);
-		input.setText("");
+		input.setText(this.LAST_PL_NAME);
    	 	new AlertDialog.Builder(this)
    	    .setTitle(getString(R.string.playlist_box_save_title))
    	    .setMessage(getString(R.string.playlist_box_save_message))
@@ -390,6 +392,8 @@ public class AddToPlaylist extends Activity {
    	            SendKeyThread skt=new SendKeyThread("");
    	            skt.setKey("SAVEPLAYLIST|"+value.replaceAll("/", ""));
    	            new Thread(skt).start();
+   	            savePLname("LASTPLAYLISTNAME",value.replaceAll("/", ""));
+   	         
    	        }
    	    }).setNegativeButton(getString(R.string.playlist_box_save_negative), new DialogInterface.OnClickListener() {
    	        public void onClick(DialogInterface dialog, int whichButton) {
@@ -397,6 +401,15 @@ public class AddToPlaylist extends Activity {
    	        }
    	    }).show();		
 	}
+	public void savePLname(String leParam,String laValue)
+    {
+		this.LAST_PL_NAME=laValue;
+    	//sauvegarde du dossier en cour :
+    	SharedPreferences sharedPref = this.getSharedPreferences("OMXclient",Context.MODE_PRIVATE);
+		  SharedPreferences.Editor editor = sharedPref.edit();
+		  editor.putString(leParam, laValue);
+		  editor.commit();
+    }
 	
 	@Override
     public void onNewIntent (Intent intent)
@@ -506,6 +519,7 @@ class checkServiveUpdate implements Runnable {
 		
 				 playLoop=mMyService.PARAM_LireEnBouble;
 				 removeAfterRead=mMyService.PARAM_RemoveAfter;
+				 ytQuality=mMyService.PARAM_YT_quality;
 				 String param=(mMyService.PARAM_LireEnBouble?"["+getString(R.string.playlist_message_lecture_en_boucle)+"]":
 					 "["+getString(R.string.playlist_message_keep_after_read)+""+
 						 (mMyService.PARAM_RemoveAfter?getString(R.string.no):getString(R.string.yes))+"]");

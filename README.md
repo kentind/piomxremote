@@ -1,4 +1,4 @@
-﻿﻿piomxremote
+piomxremote
 ===========
 
 A powerfull android remote for omx player on raspberry pi
@@ -7,60 +7,53 @@ A powerfull android remote for omx player on raspberry pi
 #####(one step install) 
 
 
-Download the plug and play image :
-http://www.kentind.ovh/
+Download the plug and play image : http://www.kentind.ovh/
 
 
-##Advanced user :
+##Advanced users :
 
-###Prerequis :
+###Prerequisites:
 
+1 Raspberry Pi
+1 android phone with wifi on the same network as the Raspberry Pi
 
-1 Raspberry !! 
-1 Téléphone android avec une connexion wifi sur le même réseau que le pi tant qu'à faire !!
+###Server Installation (Raspberry Pi):
 
-###Installation serveur :
-Télècharger les 4 fichiers présents dans le dossier "SERVER
-Placer les fichiers "youtube" et dbuscontrol.sh dans /usr/bin/
-Leur donner les droits d’exécution :
+Download the 4 files in the folder "SERVER"
+
+Place "youtube" and "dbuscontrol.sh" in /usr/bin/ and give execute permission:
 ```
-	chmod +x  /usr/bin/youtube
-	chmod +x  /usr/bin/dbuscontrol.sh
-```
-Placer les fichiers .py où bon vous semble, il en revanche important de toujours lancer "remoteServerPlaylist.py" AVANT "remoteServer.py".
-
-
-Il faut installer youtube-dl sur le pi Pour Streamer les morceaux youtube :
-
-```
-	sudo apt-get install youtube-dl
+    chmod + x /usr/bin/youtube
+    chmod + x /usr/bin/dbuscontrol.sh
 ```
 
-Pour plus de confort ;) :
+Place py files wherever you want. 
+It is always important to run "remoteServerPlaylist.py" BEFORE "remoteServer.py."
+
+You need to install youtube-dl:
 ```
-	sudo apt-get install xterm
+    sudo apt-get install youtube-dl
 ```
-
-il faut créer un dossier PLAYLIST dans /home/pi :
+For comfort;) :
 ```
-	mkdir /home/pi/PLAYLIST
+    sudo apt-get install xterm
 ```
-C'est là que seront enregistré les playlist. (si tu utilise la fonction "enregistrer" dans la playlist) C'est paramétrable dans le fichier remoteServerPlaylist.py si tu préféres les mettre ailleur.
+Create a PLAYLIST directory in /home/pi :
+```
+    mkdir /home/pi/PLAYLIST
+```
+This is where the playlist will be saved. (If you use the "save" in the playlist) This can be configured in remoteServerPlaylist.py file if you like BTW.
 
-Installation du client (l'appli android):
------------------------------------------
-Rendez vous sur le PlayStore : https://play.google.com/store/apps/details?id=wtf.omxclient
+Installing the client (android app):
+------------------------------------
 
-First use :
------------
-Renseignez l'IP de votre raspberry et le port du serveur "remoteServer.py"
-Pour controler que la connexion est ok allez sur la remote, si la "boule" est verte ca marche si elle est rouge ca ne marche :/ (vous pouvez appuyer sur la boule pour actualiser l'état)
-Essayer les appuies long sur les differente liste (playliste et files) pour afficher d'autres actions.
+Go on the PlayStore: https://play.google.com/store/apps/details?id=wtf.omxclient
 
-Enjoy ;) 
+First use:
+----------
+Fill in the IP raspberry and server port "remoteServer.py" To control the connection is ok go to the remote if the "ball" is green it works if it is red it does work: / (you can press the ball to update the status) Try the long press on the differente list (playlist and queues) to display other actions.
+you can try long press on the shutdown button for reboot.
 
+Enjoy;)
 
-
-
-
- 
+Thank you mrhobbeys for the translation.

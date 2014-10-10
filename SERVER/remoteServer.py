@@ -46,6 +46,7 @@ def sendKeyCode(keyArg):
       s=subprocess.Popen("dbuscontrol.sh action "+str(code), shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
       for line in s.stdout.readlines():
          print str(line)
+      SockPlaylist.sendall("FORCEREFRESH|ALL\r\n")
     except :
        print "DBus ErrOr" 
 
@@ -55,6 +56,8 @@ def SendShutDown(argument) :
            cde="shutdown now -h";
         elif arg=='CANCEL' :
            cde="shutdown -c"; 
+        elif arg=='REBOOT' :
+           cde="shutdown now -r"; 
         else :
            cde="shutdown +"+arg+" -h";
         subprocess.Popen(cde,  shell=True)
@@ -155,7 +158,7 @@ def clientthread(conn):
                    SockPlaylist.sendall("GOTO|"+param[1].strip()+"\r\n")
                    sendKeyCode("q")
               elif param[0]=='SETPARAMPLAYLIST' :
-                   SockPlaylist.sendall("SETPARAM|"+param[1].strip()+"|"+param[2].strip()+"\r\n")
+                   SockPlaylist.sendall("SETPARAM|"+param[1].strip()+"|"+param[2].strip()+"|"+param[3].strip()+"\r\n")
               elif param[0]=='SAVEPLAYLIST' :
                    SockPlaylist.sendall("SAVEPLAYLIST|"+param[1].strip().replace("/", ".")+"\r\n")
               elif param[0]=='list' :

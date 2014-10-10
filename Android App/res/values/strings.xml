@@ -15,10 +15,11 @@
 	<string name="loading">Loading</string>
 	<string name="endplaylist">Playlist ended</string>
 	<string name="elapsed">Elapsed</string>
+	<string name="note_the_app">You love this app ?\nRate it now !!</string>
 	
 	
 	<!-- Les libel des menus -->
-	<string name="libel_menu_parametre">Parameters</string>
+	<string name="libel_menu_parametre">Settings</string>
 	<string name="libel_menu_remote">Remote</string>
 	<string name="libel_menu_choose_file">File explorer</string>
 	<string name="libel_menu_playlist">Playlist</string>
@@ -52,6 +53,7 @@
 	
 	<string name="playlist_libel_option_remove_after_read">Remove files after read</string>
 	<string name="playlist_libel_option_playloop">Play loop</string>
+	<string name="playlist_libel_option_forceytqualitytoworth">Force youtube quality to worst</string>
 	
 	<string name="playlist_box_option_title">Playlist Option</string>
 	<string name="playlist_box_option_postive">Confirm</string>
@@ -68,6 +70,7 @@
 	
 	<!-- Message activity remote -->
 	<string name="remote_confirm_extinction">Confirm shutdown ?</string>
+	<string name="remote_confirm_reboot">Do you want to reboot now ?</string>
 	<string name="remote_choice_now">Now</string>
 	<string name="remote_choice_cancel">Cancel</string>
 	<string name="remote_choice_later">Later</string>

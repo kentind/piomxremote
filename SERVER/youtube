@@ -1,16 +1,19 @@
 #!/bin/bash
-if [ $# -ne 1 ] 
+if [ $# -lt 1 ] 
 then
-    echo "Usage : $0 <youtube_file_link>"
+    echo "!Usage : $0 <youtube_file_link>"
     echo "e.g : $0 http://www.youtube.com/watch?v=D1R-jKKp3NA"
 else
     ytquality="worst"
     omxvolume=-2000
-    if [ $# -ge 2 ]
+    if [ $# -ge 2 ]; then
         omxvolume=$2    
-    if [ $# -ge 3 ]
+	fi
+    if [ $# -ge 3 ];then
         ytquality=$3
-    #Some safety so we don't run this a bajillion times
+	fi
+	echo "Quality : $ytquality volume : $omxvolume"
+ #Some safety so we don't run this a bajillion times
     omx=`pgrep omxplayer | wc -l`
     yt=`pgrep youtube | wc -l`
     ytsearch=`pgrep youtube-search | wc -l`
@@ -19,9 +22,9 @@ else
         exit 0
     fi
     if [ -z $DISPLAY ] ; then
-        run_command="omxplayer  -o both --vol $2"
+        run_command="omxplayer  -o both --vol $omxvolume"
     else
-        run_command="xterm -fullscreen -bg black -fg black -e omxplayer -o both --vol $2"
+        run_command="xterm -fullscreen -bg black -fg black -e omxplayer -o both --vol $omxvolume"
     fi
     var=$1
     http=`echo "$var" | grep "http\|yt" | wc -l`
@@ -35,6 +38,7 @@ else
                 video="${video/yt/http}"
             fi
             todnload=`youtube-dl -i -f $ytquality -g --cookies /dev/shm/youtube_cookie.txt "$video"`
+            
             $run_command "$todnload"
             num=`expr $num + 1`
         done
@@ -49,8 +53,9 @@ else
         num=1
         while [ $num -le $tot ] ; 
         do
-            echo "$num out of $tot"
+            echo "$num outi of $tot"
             link=`echo "$todnload" | head -n $num | tail -n 1`
+			echo "$run_command "$todnload""
             $run_command "$link"
             num=`expr $num + 1`
         done

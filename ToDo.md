@@ -1,19 +1,16 @@
-###Server Side
-- send the needed video quality to youtube script
-- Send "status" : is pause or not.... and transfer new value when status change.
+﻿###Server Side
+
 - secure transfer : send an ID² (time python when first line was send ?).
 - change pipe separator to JSon for transfer  
+- move up/down a song in playlist
 
 ###Android APP :
-- add parametre "youtube video quality" in Setting activity
-- transfer the quality needed for youtube video 
+
 - create a separate class for manage all connection (instead of a subclass in each class activity) 
-- stop progression if status is pause
 - use the ID² 
 - make a little remote in bottom on each activity
 - show the progress bar on each activity (inside little remote). Use this progress bar to forward.
-- Save the last saved playslist name.
-- propose the last used name one the "save as" box
+- move up/down a song in playlist
 
 ###Play store :
 - add 7inch screen shot (Fr)
@@ -26,3 +23,4 @@
 - share all video/music url and not only youtube url
 - make an auto-updater for the server side.
 - check in app and server if the server and app version are compatible
+- clean up and optimize all the code !!

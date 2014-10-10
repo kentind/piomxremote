@@ -189,6 +189,34 @@ public class RemoteControl extends Activity {
 			            				            	
 			            }
 			          });
+				//reboot (long click on shutdown button)
+				((Button) findViewById(R.id.butShutdown)).setOnLongClickListener(new View.OnLongClickListener() {
+		            @Override
+		            public boolean onLongClick(View view) {
+		            	AlertDialog.Builder builder1 = new AlertDialog.Builder(mm);
+		                builder1.setMessage(getString(R.string.remote_confirm_reboot));
+		                builder1.setCancelable(true);
+		                builder1.setPositiveButton(getString(R.string.yes),
+		                  new DialogInterface.OnClickListener() {
+		                    public void onClick(DialogInterface dialog, int id) {
+		                    	skt.setKey("shutdown|REBOOT");
+				            	new Thread(skt).start();
+		                        dialog.cancel();
+		                    }
+		                });
+		                builder1.setNegativeButton(getString(R.string.no),
+		                   new DialogInterface.OnClickListener() {
+		                    public void onClick(DialogInterface dialog, int id) {
+		                    	dialog.cancel();
+		                    }
+		                });
+		               
+
+		                AlertDialog alert11 = builder1.create();
+		                alert11.show();
+		            	return true;	            	
+		            }
+		          });
 				//Statut
 				((Button) findViewById(R.id.butStatut)).setOnClickListener(new View.OnClickListener() {
 			            @Override

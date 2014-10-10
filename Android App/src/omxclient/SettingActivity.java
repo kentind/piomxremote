@@ -1,7 +1,7 @@
 package omxclient;
 
 import wtf.omxclient.R;
-
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -16,8 +16,9 @@ import android.widget.EditText;
 public class SettingActivity extends Activity {
 	
 	
-	public static final int MENU_REMOTE = Menu.FIRST + 1;
-	public static final int MENU_FILE = Menu.FIRST ;
+	public static final int MENU_REMOTE = Menu.FIRST;
+	public static final int MENU_FILE = Menu.FIRST  + 1;
+	public static final int MENU_PLAYLIST = Menu.FIRST + 2;
 	
 	private  int SERVERPORT = 3237;
 	private String SERVER_IP = "192.168.0.31";
@@ -31,6 +32,7 @@ public class SettingActivity extends Activity {
 
         menu.add(Menu.NONE, MENU_FILE, Menu.NONE, getString(R.string.libel_menu_choose_file));
         menu.add(Menu.NONE, MENU_REMOTE, Menu.NONE, getString(R.string.libel_menu_remote));
+        menu.add(Menu.NONE, MENU_PLAYLIST, Menu.NONE, getString(R.string.libel_menu_playlist));
         return true;
     }
     
@@ -45,6 +47,9 @@ public class SettingActivity extends Activity {
         case MENU_FILE:
         		startActivity(new Intent(this, ChooseFile.class));     	
             return true;
+        case MENU_PLAYLIST:
+    		startActivity(new Intent(this, AddToPlaylist.class));     	
+        return true;
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -158,7 +163,16 @@ public class SettingActivity extends Activity {
         		startActivity(new Intent(mm, ChooseFile.class));
             }
           });
-		
+		((Button) findViewById(R.id.butNoteTheApp)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            	saveAll();
+          
+            	Intent intent =new Intent(Intent.ACTION_VIEW);
+            	intent.setData(Uri.parse("market://details?id=wtf.omxclient"));
+            	startActivity(intent);
+            }
+          });
 	}
 
 	

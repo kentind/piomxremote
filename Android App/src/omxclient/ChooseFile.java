@@ -13,18 +13,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-import wtf.omxclient.R;
 
+import wtf.omxclient.R;
 import android.app.Activity;
 import android.app.AlertDialog;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import android.os.Bundle;
-
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,7 +35,8 @@ import android.widget.Toast;
 
 public class ChooseFile  extends Activity {
 	
-	 public static final int MENU_PLAYALL = Menu.FIRST + 2;
+	 public static final int MENU_PLAYALL = Menu.FIRST + 3;
+	 public static final int MENU_PLAYLIST = Menu.FIRST + 2;
 	public static final int MENU_PARAM = Menu.FIRST + 1;
 	public static final int MENU_REMOTE = Menu.FIRST ;
 
@@ -67,6 +65,7 @@ public class ChooseFile  extends Activity {
 
         menu.add(Menu.NONE, MENU_REMOTE, Menu.NONE, getString(R.string.libel_menu_remote));
         menu.add(Menu.NONE, MENU_PARAM, Menu.NONE, getString(R.string.libel_menu_parametre));
+        menu.add(Menu.NONE, MENU_PLAYLIST, Menu.NONE, getString(R.string.libel_menu_playlist));
         menu.add(Menu.NONE, MENU_PLAYALL, Menu.NONE, getString(R.string.libel_menu_play_all_files));
         return true;
     }
@@ -82,6 +81,9 @@ public class ChooseFile  extends Activity {
         case MENU_REMOTE:
         		startActivity(new Intent(this, RemoteControl.class));     	
             return true;
+        case MENU_PLAYLIST:
+    		startActivity(new Intent(this, AddToPlaylist.class));     	
+        return true;
         case MENU_PLAYALL:
         	PlayFile pf=new PlayFile(docAlister,"ALL",OMXOPTION);
 				new Thread(pf).start();  	
@@ -147,7 +149,7 @@ public class ChooseFile  extends Activity {
 		this.SERVER_IP=sharedPref.getString("IP", "192.168.0.1");
 		this.SERVERPORT=sharedPref.getInt("PORT", 3237);
 		this.docAlister= sharedPref.getString("savedTree", "/home");
-		this.OMXOPTION= sharedPref.getString("OMXOPTION", "-o hdmi -r ");
+		this.OMXOPTION= sharedPref.getString("OMXOPTION", "-o both ");
     }
    
     @Override

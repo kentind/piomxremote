@@ -15,6 +15,7 @@
 	<string name="loading">Chargement</string>
 	<string name="endplaylist">Lecture terminé</string>
 	<string name="elapsed">Ecoulé</string>
+	<string name="note_the_app">Vous aimez cette appli ?\nNotez la !!</string>
 	
 	
 	<!-- Les libel des menus -->
@@ -52,6 +53,7 @@
 	
 	<string name="playlist_libel_option_remove_after_read">Retirer les éléments aprés lecture</string>
 	<string name="playlist_libel_option_playloop">Lire en boucle</string>
+	<string name="playlist_libel_option_forceytqualitytoworth">Forcer la qualité youtube au minimum</string>
 	
 	<string name="playlist_box_option_title">Option de la playlist</string>
 	<string name="playlist_box_option_postive">Valider</string>
@@ -68,6 +70,7 @@
 	
 	<!-- Message activity remote -->
 	<string name="remote_confirm_extinction">Confirmer l\'extinction ?</string>
+	<string name="remote_confirm_reboot">Voulez vous rebooter votre raspberry ?</string>
 	<string name="remote_choice_now">Now</string>
 	<string name="remote_choice_cancel">Cancel</string>
 	<string name="remote_choice_later">Later</string>

@@ -30,6 +30,8 @@ def sendToClient(ipClient,portClient):
      try:
          SockClient = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
          SockClient.connect((ipClient,portClient))
+         print 'status|ISPAUSE|'+str(OmxIsPause()).strip()+"\r\n"
+         SockClient.sendall('status|ISPAUSE|'+str(OmxIsPause()).strip()+"\r\n")
          # les param :
          for key in listParam.keys() :
             SockClient.sendall('param|'+key+'|'+str(listParam[key]).strip()+"\r\n")
@@ -77,6 +79,18 @@ def setPostion() :
    except Exception, e:
           print e
  
+def OmxIsPause():
+   try:
+       s = subprocess.Popen('dbuscontrol.sh ispause', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+       du=0
+       for line in s.stdout.readlines():
+          du=line.strip()
+       if(isInt(du)):
+          return du
+       else :
+          return 0
+   except Exception, e:
+          print e
  
 def setDurationBus():
     global CurrentFileDuration
@@ -127,7 +141,7 @@ def readAll(lePath,lesParam) :
       if filename[0]!="." :
           if (os.path.isfile(lePath+"/"+filename)) :
               ext = filename.split(".")
-              if(len(ext)>1 and (ext[-1].upper()=="AVI" or ext[-1].upper()=="MPEG" or  ext[-1].upper()=="MKV" or ext[-1].upper()=="MPG" or ext[-1].upper()=="MP3")) :
+              if(len(ext)>1 and (ext[-1].upper()=="AVI" or ext[-1].upper()=="MPEG" or  ext[-1].upper()=="MKV" or ext[-1].upper()=="MPG" or ext[-1].upper()=="MP3" or ext[-1].upper()=="MP4")) :
                  lastId+=1
                  print 'ajout list : ',lastId
                  playlist[lastId]=lePath+"/"+filename+"|"+lesParam
@@ -191,20 +205,22 @@ def next():
         idLectureEnCour=0
         next()
 
-def updateParam(param1,param2):
+def updateParam(param1,param2,param3):
      global listParam
      p = param1.split("=")
      listParam[p[0]]=p[1].strip()
      p = param2.split("=")
      listParam[p[0]]=p[1].strip()
-      		
+     p = param3.split("=")
+     listParam[p[0]]=p[1].strip()
 		
 def readYoutube(leFile) :
 # SendKill()
  global soundLevel
+ global listParam
  lf=leFile.split(":")
  print " WOOOOOOOOOO__"+str(len(lf))+"__________!!!!"
- ligne = 'xterm -bg black  -fg black -fullscreen -e youtube "'+lf[1].strip()+":"+lf[2].strip()+'" '+str(soundLevel)
+ ligne = 'xterm -bg black  -fg black -fullscreen -e youtube "'+lf[1].strip()+":"+lf[2].strip()+'" '+str(soundLevel)+' '+listParam['YOUTUBEQUALITY']
  print ligne
  subprocess.call(ligne,  shell=True) 
  
@@ -227,7 +243,7 @@ def clientthreadInterne(conn):
               print RequeteDuClient         # affiche les donnees envoyees
               param = RequeteDuClient.split("|")
               if param[0]=='SETPARAM' :
-                    updateParam(param[1].strip(),param[2].strip())
+                    updateParam(param[1].strip(),param[2].strip(),param[3].strip())
                     #todo : si isPlaying==0 est que lecture en boucle alor next()...
                     start_new_thread(clientthreadEXterne,())
               elif param[0]=='ADD' :
@@ -261,6 +277,8 @@ def clientthreadInterne(conn):
                     soundLevel=param[1].strip()
               elif param[0]=='SAVEPLAYLIST' :
                     savePlayList(param[1].strip())
+              elif param[0]=='FORCEREFRESH' :
+                    start_new_thread(clientthreadEXterne,())
               elif param[0]=='ADDCLIENT' :
                    if param[1].strip() not in listClient :
                       listClient[param[1].strip()]=param[1].strip()
@@ -286,7 +304,7 @@ CurrentFileDuration=0
 TimeEnSecPlay=0
 soundLevel=-2000
 listClient={}
-listParam = {'LIREENBOUCLE': '0', 'REMOVEAFTER': '1'}
+listParam = {'LIREENBOUCLE': '0', 'REMOVEAFTER': '1', 'YOUTUBEQUALITY' :'best'}
 PlayListSaveDir='/home/pi/PLAYLIST/'
 
 while 1:
