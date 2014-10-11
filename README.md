@@ -54,6 +54,19 @@ First use:
 Fill in the IP raspberry and server port "remoteServer.py" To control the connection is ok go to the remote if the "ball" is green it works if it is red it does work: / (you can press the ball to update the status) Try the long press on the differente list (playlist and queues) to display other actions.
 you can try long press on the shutdown button for reboot.
 
+Other tips :
+----------
+It can read ".sh" and ".tv" file if it contains "omxplayer".
+For example :
+```
+    #!/bin/sh 
+    xterm -bg black -fg black -fullscreen -e omxplayer -o hdmi "rtsp://192.168.0.45/fbxdvb/stream?tsid=1&nid=8442&sid=257&frontend=1"
+    
+    [...] Some other stuff
+```
+(only) the entire line that contains "omxplayer" will be execute.
+You can use it to store your favourite TV chanel. 
+				
 Enjoy;)
 
 Thank you mrhobbeys for the translation.
