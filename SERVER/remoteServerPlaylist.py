@@ -220,9 +220,19 @@ def readYoutube(leFile) :
  global listParam
  lf=leFile.split(":")
  print " WOOOOOOOOOO__"+str(len(lf))+"__________!!!!"
- ligne = 'xterm -bg black  -fg black -fullscreen -e youtube "'+lf[1].strip()+":"+lf[2].strip()+'" '+str(soundLevel)+' '+listParam['YOUTUBEQUALITY']
+ posURL=0
+ http="http"
+ for i in range(len(lf)):
+    if lf[i].endswith("http") :
+       posURL=i
+    if lf[i].endswith("https") :
+       posURL=i
+       http="https"
+
+
+ ligne = 'xterm -bg black  -fg black -fullscreen -e youtube "'+http+':'+lf[posURL+1].strip()+'" '+str(soundLevel)+' '+listParam['YOUTUBEQUALITY']
  print ligne
- subprocess.call(ligne,  shell=True) 
+ subprocess.call(ligne,  shell=True)  
  
 #Function for handling connections. This will be used to create threads
 def clientthreadInterne(conn):
