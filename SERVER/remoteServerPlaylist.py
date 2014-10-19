@@ -35,6 +35,7 @@ def sendToClient(ipClient,portClient):
          # les param :
          for key in listParam.keys() :
             SockClient.sendall('param|'+key+'|'+str(listParam[key]).strip()+"\r\n")
+            print (ipClient,key,str(listParam[key]).strip())
          #La playlist :
          tpsEcoule=TimeEnSecPlay
 #int(round(time.time()))-TimeEnSecPlay

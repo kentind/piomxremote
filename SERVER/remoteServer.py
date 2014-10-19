@@ -63,7 +63,8 @@ def SendShutDown(argument) :
         subprocess.Popen(cde,  shell=True)
 
 def SendKill() :
-        subprocess.Popen("killall omxplayer",  shell=True)		
+        subprocess.Popen("killall youtube",  shell=True)
+        subprocess.Popen("killall omxplayer",  shell=True)
 		
 def lisdirectory(lePath) :
   f=[]
@@ -154,9 +155,11 @@ def clientthread(conn):
                    SockPlaylist.sendall("ADD|"+param[1].strip()+'|'+param[2].strip()+"\r\n")
               elif param[0]=='REMOVEPLAYLIST' :
                    SockPlaylist.sendall("REMOVE|"+param[1].strip()+"\r\n")
+                   SendKill()
               elif param[0]=='GOTOPLAYLIST' :
+                   SendKill()
                    SockPlaylist.sendall("GOTO|"+param[1].strip()+"\r\n")
-                   sendKeyCode("q")
+                   #sendKeyCode("q")
               elif param[0]=='SETPARAMPLAYLIST' :
                    SockPlaylist.sendall("SETPARAM|"+param[1].strip()+"|"+param[2].strip()+"|"+param[3].strip()+"\r\n")
               elif param[0]=='SAVEPLAYLIST' :
