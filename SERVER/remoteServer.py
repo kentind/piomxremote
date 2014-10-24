@@ -92,6 +92,10 @@ def lisdirectory(lePath) :
   f.append(fichier)  
   return f
 
+def deleteFile(leFile) :
+ if os.path.isfile(leFile) :
+    os.remove(leFile)
+
 def readsh(leFile) :
  SendKill()
  p = re.compile('.*omxplayer.*')
@@ -159,6 +163,9 @@ def clientthread(conn):
               elif param[0]=='GOTOPLAYLIST' :
                    SendKill()
                    SockPlaylist.sendall("GOTO|"+param[1].strip()+"\r\n")
+                   #sendKeyCode("q")
+              elif param[0]=='DELETEFILE' :
+                   deleteFile(param[1].strip())
                    #sendKeyCode("q")
               elif param[0]=='SETPARAMPLAYLIST' :
                    SockPlaylist.sendall("SETPARAM|"+param[1].strip()+"|"+param[2].strip()+"|"+param[3].strip()+"\r\n")

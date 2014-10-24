@@ -162,7 +162,7 @@ def savePlayList(leNomDuFichier):
    global PlayListSaveDir
    fichier = open(PlayListSaveDir+leNomDuFichier+".PLAY", "w")
    for key in sorted(playlist.keys()) :
-      fichier.write(playlist[key]+"\r\n") 
+      fichier.write(playlist[key].replace("\n"," ").replace("\r","")+"\r\n") 
    fichier.close()
 
 def next():
