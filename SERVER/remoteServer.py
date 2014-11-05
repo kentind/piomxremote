@@ -159,7 +159,8 @@ def clientthread(conn):
                    SockPlaylist.sendall("ADD|"+param[1].strip()+'|'+param[2].strip()+"\r\n")
               elif param[0]=='REMOVEPLAYLIST' :
                    SockPlaylist.sendall("REMOVE|"+param[1].strip()+"\r\n")
-                   SendKill()
+                   if param[1].strip()=='ALL' :
+                      SendKill()
               elif param[0]=='GOTOPLAYLIST' :
                    SendKill()
                    SockPlaylist.sendall("GOTO|"+param[1].strip()+"\r\n")

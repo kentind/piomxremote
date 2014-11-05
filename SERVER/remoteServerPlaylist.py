@@ -230,10 +230,20 @@ def readYoutube(leFile) :
        posURL=i
        http="https"
 
-
  ligne = 'xterm -bg black  -fg black -fullscreen -e youtube "'+http+':'+lf[posURL+1].strip()+'" '+str(soundLevel)+' '+listParam['YOUTUBEQUALITY']
  print ligne
  subprocess.call(ligne,  shell=True)  
+ 
+def isDoubleAdd(leFile) :
+    global lastId
+    global playlist
+    
+    try:
+       if playlist[lastId] == leFile :
+         return True
+    except Exception, e:
+       print 'allready removed or other...'
+    return False
  
 #Function for handling connections. This will be used to create threads
 def clientthreadInterne(conn):
@@ -258,12 +268,13 @@ def clientthreadInterne(conn):
                     #todo : si isPlaying==0 est que lecture en boucle alor next()...
                     start_new_thread(clientthreadEXterne,())
               elif param[0]=='ADD' :
-                   lastId+=1
-                   print 'ajout list : ',lastId
-                   playlist[lastId]=param[1].strip()+"|"+param[2].strip()
-                   start_new_thread(clientthreadEXterne,())
-                   if isPlaying==0 :
-                       start_new_thread(next,())
+                   if isDoubleAdd(param[1].strip()+"|"+param[2].strip())==False :
+                      lastId+=1
+                      print 'ajout list : ',lastId
+                      playlist[lastId]=param[1].strip()+"|"+param[2].strip()
+                      start_new_thread(clientthreadEXterne,())
+                      if isPlaying==0 :
+                          start_new_thread(next,())
               elif param[0]=='REMOVE' :
 			  #On s'attend a ce que param[1] soit l'id...
                  if param[1].strip()=='ALL':
