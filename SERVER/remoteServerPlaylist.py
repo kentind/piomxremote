@@ -304,7 +304,7 @@ def clientthreadInterne(conn):
               elif param[0]=='ADDCLIENT' :
                    if param[1].strip() not in listClient :
                       listClient[param[1].strip()]=param[1].strip()
-                      start_new_thread(sendToClient,(param[1].strip(),3236))
+                   start_new_thread(sendToClient,(param[1].strip(),3236))
     #came out of loop
     conn.close()
 
