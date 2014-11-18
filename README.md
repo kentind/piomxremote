@@ -34,7 +34,7 @@ You need to install youtube-dl:
 ```
     sudo apt-get install youtube-dl
 ```
-For comfort;) :
+For comfort;) (but inevitably required) :
 ```
     sudo apt-get install xterm
 ```
@@ -51,8 +51,9 @@ Go on the PlayStore: https://play.google.com/store/apps/details?id=wtf.omxclient
 
 First use:
 ----------
-Fill in the IP raspberry and server port "remoteServer.py" To control the connection is ok go to the remote if the "ball" is green it works if it is red it does work: / (you can press the ball to update the status) Try the long press on the differente list (playlist and queues) to display other actions.
+Fill in the IP raspberry and server port "remoteServer.py" To control the connection is ok go to the remote if the "PORC" icon is pink it works if it is grey it does work :/ (you can press the icon to update the status) Try the long press on the different list (file list and queue) to display other actions.
 you can try long press on the shutdown button for reboot.
+The "cancel" option in shutdown box mean "cancel a previously programmed shutdown"  
 
 Other tips :
 ----------

@@ -27,10 +27,10 @@ Leur donner les droits d’exécution :
 	chmod +x  /usr/bin/youtube
 	chmod +x  /usr/bin/dbuscontrol.sh
 ```
-Placer les fichiers .py où bon vous semble, il en revanche important de toujours lancer "remoteServerPlaylist.py" AVANT "remoteServer.py".
+Placer les fichiers .py où bon vous semble, il est en revanche important de toujours lancer "remoteServerPlaylist.py" AVANT "remoteServer.py".
 
 
-Il faut installer youtube-dl sur le pi Pour Streamer les morceaux youtube :
+Il faut installer youtube-dl sur le pi Pour Streamer les morceaux youtube (et autres supporté par youtube-dl) :
 
 ```
 	sudo apt-get install youtube-dl
@@ -54,8 +54,9 @@ Rendez vous sur le PlayStore : https://play.google.com/store/apps/details?id=wtf
 First use :
 -----------
 Renseignez l'IP de votre raspberry et le port du serveur "remoteServer.py"
-Pour controler que la connexion est ok allez sur la remote, si la "boule" est verte ca marche si elle est rouge ca ne marche :/ (vous pouvez appuyer sur la boule pour actualiser l'état)
-Essayer les appuies long sur les differente liste (playliste et files) pour afficher d'autres actions.
+Pour controler que la connexion est ok allez sur la remote, si l'icone PORC est ROSE ca fonctionne si elle est grise ca ne fonctionne pas :/ (vous pouvez appuyer sur l'icone pour actualiser l'état)
+Essayer les appuis long sur les differentes listes (playlist et files) pour afficher d'autres actions.
+
 
 Enjoy ;) 
 
