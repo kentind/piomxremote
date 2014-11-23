@@ -75,7 +75,8 @@ def lisdirectory(lePath) :
       if filename[0]!="." :
           if (os.path.isfile(lePath+"/"+filename)) :
               ext = filename.split(".")
-              if(len(ext)>1 and (ext[-1].upper()=="AVI" or ext[-1].upper()=="MPEG" or  ext[-1].upper()=="MKV" or ext[-1].upper()=="MPG" or ext[-1].upper()=="MP3" or ext[-1].upper()=="MP4")) :
+              if(len(ext)>1 and (
+              ext[-1].upper()=="AVI" or ext[-1].upper()=="MPEG" or  ext[-1].upper()=="MKV" or ext[-1].upper()=="MPG" or ext[-1].upper()=="MP3" or ext[-1].upper()=="MP4" )) :
                  typeF='AVI'
               elif (len(ext)>1 and (ext[-1].upper()=="TV" or ext[-1].upper()=="SH")) : 
                  typeF='TV'
@@ -174,10 +175,12 @@ def clientthread(conn):
                    SockPlaylist.sendall("SAVEPLAYLIST|"+param[1].strip().replace("/", ".")+"\r\n")
               elif param[0]=='list' :
                    list0= lisdirectory(param[1].strip())
+                   conn.sendall('STARTFILELIST|'+param[1].strip()+'\r\n')
                    for i in range(len(list0)):
                       for y in range(len(list0[i])):
-                        conn.sendall(list0[i][y]+"\r\n");
-        conn.sendall('OKEND\r\n')
+                        conn.sendall("FILE|"+list0[i][y]+"\r\n")
+                   conn.sendall('ENDFILELIST\r\n')
+#        conn.sendall('SAY|'+param[0]+' done\r\n')
      
     #came out of loop
     conn.close()
