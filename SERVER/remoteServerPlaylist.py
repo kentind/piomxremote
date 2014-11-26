@@ -116,23 +116,23 @@ def setDurationBus():
        start_new_thread(clientthreadEXterne,())
 
 
-def setDuration(leFile):
- global CurrentFileDuration
- p=leFile.split("|")
- if (os.path.isfile(p[0])):
-    s = subprocess.Popen('mp3info -p "%S" "'+p[0]+'"', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    du=0
-    for line in s.stdout.readlines():
-       du=line
-    if(isInt(du)):
-        CurrentFileDuration=du
-    else:
-        print str(du)+" n'est pas un int"
-        CurrentFileDuration=0
- else:
-    print p[0]+" n'est pas un file"
-    CurrentFileDuration=0
-	
+#def setDuration(leFile):
+# global CurrentFileDuration
+# p=leFile.split("|")
+# if (os.path.isfile(p[0])):
+#    s = subprocess.Popen('mp3info -p "%S" "'+p[0]+'"', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+#    du=0
+#    for line in s.stdout.readlines():
+#       du=line
+#    if(isInt(du)):
+#        CurrentFileDuration=du
+#    else:
+#        print str(du)+" n'est pas un int"
+#        CurrentFileDuration=0
+# else:
+#    print p[0]+" n'est pas un file"
+#    CurrentFileDuration=0
+
 def readAll(lePath,lesParam) :
  global lastId
  global playlist
@@ -142,7 +142,7 @@ def readAll(lePath,lesParam) :
       if filename[0]!="." :
           if (os.path.isfile(lePath+"/"+filename)) :
               ext = filename.split(".")
-              if(len(ext)>1 and (ext[-1].upper()=="AVI" or ext[-1].upper()=="MPEG" or  ext[-1].upper()=="MKV" or ext[-1].upper()=="MPG" or ext[-1].upper()=="MP3" or ext[-1].upper()=="MP4")) :
+              if(len(ext)>1 and (ext[-1].upper()=="AVI" or ext[-1].upper()=="MPEG" or  ext[-1].upper()=="MKV" or ext[-1].upper()=="MPG" or ext[-1].upper()=="MP3" or ext[-1].upper()=="MP4"  or ext[-1].upper()=="FLAC")) :
                  lastId+=1
                  print 'ajout list : ',lastId
                  playlist[lastId]=lePath+"/"+filename+"|"+lesParam
