@@ -16,6 +16,7 @@ def isInt(s):
         return False
 
 def clientthreadEXterne():
+    global listClient
     setPostion()
     for cle, valeur in listClient.items() :
        print(cle, valeur)
@@ -106,7 +107,7 @@ def setDurationBus():
           if(isInt(du)):
              CurrentFileDuration=int(round(int(du)/1000000))
           else:
-             print str(du)+" n'est pas un int"
+             #print str(du)+" n'est pas un int"
              CurrentFileDuration=0
        except Exception, e:
           print e
@@ -115,23 +116,6 @@ def setDurationBus():
     if CurrentFileDuration!=0 :
        start_new_thread(clientthreadEXterne,())
 
-
-#def setDuration(leFile):
-# global CurrentFileDuration
-# p=leFile.split("|")
-# if (os.path.isfile(p[0])):
-#    s = subprocess.Popen('mp3info -p "%S" "'+p[0]+'"', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-#    du=0
-#    for line in s.stdout.readlines():
-#       du=line
-#    if(isInt(du)):
-#        CurrentFileDuration=du
-#    else:
-#        print str(du)+" n'est pas un int"
-#        CurrentFileDuration=0
-# else:
-#    print p[0]+" n'est pas un file"
-#    CurrentFileDuration=0
 
 def readAll(lePath,lesParam) :
  global lastId
@@ -221,7 +205,7 @@ def readYoutube(leFile) :
  global listParam
  lf=leFile.split(":")
  print " WOOOOOOOOOO__"+str(len(lf))+"__________!!!!"
- posURL=0
+ posURL=-1
  http="http"
  for i in range(len(lf)):
     if lf[i].endswith("http") :
@@ -229,10 +213,12 @@ def readYoutube(leFile) :
     if lf[i].endswith("https") :
        posURL=i
        http="https"
-
- ligne = 'xterm -bg black  -fg black -fullscreen -e youtube "'+http+':'+lf[posURL+1].strip()+'" '+str(soundLevel)+' '+listParam['YOUTUBEQUALITY']
- print ligne
- subprocess.call(ligne,  shell=True)  
+ if posURL!=-1 :
+   if len(lf)>=posURL+1 : 
+      if lf[posURL+1].strip().startswith("//"):
+         ligne = 'xterm -bg black  -fg black -fullscreen -e youtube "'+http+':'+lf[posURL+1].strip()+'" '+str(soundLevel)+' '+listParam['YOUTUBEQUALITY']
+         print ligne  
+         subprocess.call(ligne,  shell=True)  
  
 def isDoubleAdd(leFile) :
     global lastId
@@ -278,6 +264,7 @@ def clientthreadInterne(conn):
               elif param[0]=='REMOVE' :
 			  #On s'attend a ce que param[1] soit l'id...
                  if param[1].strip()=='ALL':
+                    listParam['LIREENBOUCLE']='0'
                     playlist.clear()
                     start_new_thread(clientthreadEXterne,())
                  else:
