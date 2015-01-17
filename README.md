@@ -49,6 +49,7 @@ You can now run PORC :
 ```
 
 *OPTIONAL :*
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For a welcome sound : `mkdir /home/pi/PORC/WelcomeSound/` Place any music song here.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For a ring on incoming call : `mkdir /home/pi/PORC/RING/` Place a file named "ring.mp3" here.
@@ -57,7 +58,7 @@ You can now run PORC :
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;add the line : `@xterm -e sudo /home/pi/PORC/bin/remoteServer.py` 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;at the end of this file : `sudo nano /etc/xdg/lxsession/LXDE/autostart`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at the end of this file : `sudo nano /etc/xdg/lxsession/LXDE/autostart`
 
 
 
