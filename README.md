@@ -19,7 +19,7 @@ Download the plug and play image : http://www.kentind.ovh/
 
 ###Server Installation (Raspberry Pi):
 
-Download the 4 files in the folder "SERVER"
+Download the folder "SERVER"
 
 Place "youtube" and "dbuscontrol.sh" in /usr/bin/ and give execute permission:
 ```
@@ -27,8 +27,7 @@ Place "youtube" and "dbuscontrol.sh" in /usr/bin/ and give execute permission:
     chmod + x /usr/bin/dbuscontrol.sh
 ```
 
-Place py files wherever you want (but in the same dir). 
-Only run "remoteServer.py."
+Place PORC folder in /home/pi/ 
 
 You need to install youtube-dl:
 ```
@@ -43,6 +42,11 @@ Create a PLAYLIST directory in /home/pi :
     mkdir /home/pi/PLAYLIST
 ```
 This is where the playlist will be saved. (If you use the "save" in the playlist) This can be configured in remoteServerPlaylist.py file if you like BTW.
+
+You ca now run PORC :
+```
+    sudo /home/pi/PORC/bin/remoteServer.py
+```
 
 _OPTIONAL :_
 For a welcome sound :
