@@ -48,7 +48,7 @@ You ca now run PORC :
     sudo /home/pi/PORC/bin/remoteServer.py
 ```
 
-_OPTIONAL :_
+*OPTIONAL :*
 For a welcome sound :
 ```
     mkdir /home/pi/PORC/WelcomeSound/
