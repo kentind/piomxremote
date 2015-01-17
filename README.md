@@ -27,8 +27,8 @@ Place "youtube" and "dbuscontrol.sh" in /usr/bin/ and give execute permission:
     chmod + x /usr/bin/dbuscontrol.sh
 ```
 
-Place py files wherever you want. 
-It is always important to run "remoteServerPlaylist.py" BEFORE "remoteServer.py."
+Place py files wherever you want (but in the same dir). 
+Only run "remoteServer.py."
 
 You need to install youtube-dl:
 ```
@@ -43,6 +43,28 @@ Create a PLAYLIST directory in /home/pi :
     mkdir /home/pi/PLAYLIST
 ```
 This is where the playlist will be saved. (If you use the "save" in the playlist) This can be configured in remoteServerPlaylist.py file if you like BTW.
+
+_OPTIONAL :_
+For a welcome sound :
+```
+    mkdir /home/pi/PORC/WelcomeSound/
+```
+Place any music song here.
+
+For a ring on incoming call :
+```
+    mkdir /home/pi/PORC/RING/
+```
+Place a file named "ring.mp3" here.
+
+To run PORC server on start :
+add this line : 
+    @xterm -e sudo /home/pi/PORC/bin/remoteServer.py
+add the end of this file :
+```
+    sudo nano /etc/xdg/lxsession/LXDE/autostart
+```
+
 
 Installing the client (android app):
 ------------------------------------
