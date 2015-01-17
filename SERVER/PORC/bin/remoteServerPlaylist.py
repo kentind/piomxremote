@@ -232,7 +232,7 @@ def isDoubleAdd(leFile) :
     return False
  
 #Function for handling connections. This will be used to create threads
-def clientthreadInterne(conn):
+def doAction(action):
     global idLectureEnCour
     global listParam
     global lastId
@@ -244,67 +244,54 @@ def clientthreadInterne(conn):
     #conn.send('Welcome to the server. Type something and hit enter\n') #send only takes string
      
     #infinite loop so that function do not terminate and thread do not end.
-    while True:
-        RequeteDuClient = conn.recv(99999) # on recoit 255 caracteres grand max
-        if len(RequeteDuClient)>0 :
-              print RequeteDuClient         # affiche les donnees envoyees
-              param = RequeteDuClient.split("|")
-              if param[0]=='SETPARAM' :
-                    updateParam(param[1].strip(),param[2].strip(),param[3].strip())
-                    #todo : si isPlaying==0 est que lecture en boucle alor next()...
-                    start_new_thread(clientthreadEXterne,())
-              elif param[0]=='ADD' :
-                   if isDoubleAdd(param[1].strip()+"|"+param[2].strip())==False :
-                      lastId+=1
-                      print 'ajout list : ',lastId
-                      playlist[lastId]=param[1].strip()+"|"+param[2].strip()
-                      start_new_thread(clientthreadEXterne,())
-                      if isPlaying==0 :
-                          start_new_thread(next,())
-              elif param[0]=='REMOVE' :
+    if len(action)>0 :
+       print action         # affiche les donnees envoyees
+       param = action.split("|")
+       if param[0]=='SETPARAM' :
+             updateParam(param[1].strip(),param[2].strip(),param[3].strip())
+             #todo : si isPlaying==0 est que lecture en boucle alor next()...
+             start_new_thread(clientthreadEXterne,())
+       elif param[0]=='ADD' :
+            if isDoubleAdd(param[1].strip()+"|"+param[2].strip())==False :
+               lastId+=1
+               print 'ajout list : ',lastId
+               playlist[lastId]=param[1].strip()+"|"+param[2].strip()
+               start_new_thread(clientthreadEXterne,())
+               if isPlaying==0 :
+                   start_new_thread(next,())
+       elif param[0]=='REMOVE' :
 			  #On s'attend a ce que param[1] soit l'id...
-                 if param[1].strip()=='ALL':
-                    listParam['LIREENBOUCLE']='0'
-                    playlist.clear()
-                    start_new_thread(clientthreadEXterne,())
-                 else:
-                    try:
-                       del playlist[int(param[1].strip())]                   
-                       start_new_thread(clientthreadEXterne,())
-                    except Exception, e:
-                       print 'allready removed or other...'
-              elif param[0]=='GOTO' :
-                    idLectureEnCour=int(param[1].strip())-1
-                    if isPlaying==0 :
-                       start_new_thread(next,())
-              elif param[0]=='PLAYALL' :
-                    readAll(param[1].strip(),param[2].strip())
-                    start_new_thread(clientthreadEXterne,())
-                    if isPlaying==0 :
-                       start_new_thread(next,())
-              elif param[0]=='SETSOUNDLEVEL' :
-                    soundLevel=param[1].strip()
-              elif param[0]=='SAVEPLAYLIST' :
-                    savePlayList(param[1].strip())
-              elif param[0]=='FORCEREFRESH' :
-                    start_new_thread(clientthreadEXterne,())
-              elif param[0]=='ADDCLIENT' :
-                   if param[1].strip() not in listClient :
-                      listClient[param[1].strip()]=param[1].strip()
-                   start_new_thread(sendToClient,(param[1].strip(),3236))
-    #came out of loop
-    conn.close()
+          if param[1].strip()=='ALL':
+             listParam['LIREENBOUCLE']='0'
+             playlist.clear()
+             start_new_thread(clientthreadEXterne,())
+          else:
+             try:
+                del playlist[int(param[1].strip())]                   
+                start_new_thread(clientthreadEXterne,())
+             except Exception, e:
+                print 'allready removed or other...'
+       elif param[0]=='GOTO' :
+             idLectureEnCour=int(param[1].strip())-1
+             if isPlaying==0 :
+                start_new_thread(next,())
+       elif param[0]=='PLAYALL' :
+             readAll(param[1].strip(),param[2].strip())
+             start_new_thread(clientthreadEXterne,())
+             if isPlaying==0 :
+                start_new_thread(next,())
+       elif param[0]=='SETSOUNDLEVEL' :
+             soundLevel=param[1].strip()
+       elif param[0]=='SAVEPLAYLIST' :
+             savePlayList(param[1].strip())
+       elif param[0]=='FORCEREFRESH' :
+             start_new_thread(clientthreadEXterne,())
+       elif param[0]=='ADDCLIENT' :
+            if param[1].strip() not in listClient :
+               listClient[param[1].strip()]=param[1].strip()
+            start_new_thread(sendToClient,(param[1].strip(),3236))
 
-Sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-Host = '0.0.0.0' # l'ip locale de l'ordinateur
-Port = 3235         # choix d'un port
- 
 
-# on bind notre socket :
-Sock.bind((Host,Port))
- 
-# On est a l'ecoute d'une seule et unique connexion :
-Sock.listen(10)
 isPlaying=0
 playlist={}
 lastId=0
@@ -315,23 +302,3 @@ soundLevel=-2000
 listClient={}
 listParam = {'LIREENBOUCLE': '0', 'REMOVEAFTER': '1', 'YOUTUBEQUALITY' :'best'}
 PlayListSaveDir='/home/pi/PLAYLIST/'
-
-while 1:
-   # Le script se stoppe ici jusqu'a ce qu'il y ait connexion :
-   client, adresse = Sock.accept() # accepte les connexions de l'exterieur
-   print "L'adresse",adresse,"vient de se connecter au serveur !"
-   if adresse[0]=='127.0.0.1' or adresse[0]=='localhost':
-      print "Lance thread..."
-      start_new_thread(clientthreadInterne ,(client,))
-  # else	start_new_thread(clientthreadEXterne ,(client,))
- 
-Sock.close()
- 
-        
-        
-
-
-
-
-
-
