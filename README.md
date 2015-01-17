@@ -27,7 +27,11 @@ Place "youtube" and "dbuscontrol.sh" in /usr/bin/ and give execute permission:
     chmod + x /usr/bin/dbuscontrol.sh
 ```
 
-#Place "PORC" folder in /home/pi/ 
+Place "PORC" folder in /home/pi/ and give execute permission:
+```
+    chmod +x /home/pi/PORC/bin/remoteServer.py
+    chmod +x /home/pi/PORC/bin/remoteServerPlaylist.py
+```
 
 You need to install youtube-dl:
 ```
