@@ -183,7 +183,8 @@ def clientthread(conn):
                         conn.sendall("FILE|"+list0[i][y]+"\r\n")
                    conn.sendall('ENDFILELIST\r\n')
 #        conn.sendall('SAY|'+param[0]+' done\r\n')
-     
+        else :
+           break
     #came out of loop
     conn.close()
 
