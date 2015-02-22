@@ -7,6 +7,7 @@ import os
 import socket
 import re
 import shutil
+import youtube_dl
 
 def isInt(s):
     try: 
@@ -199,6 +200,28 @@ def updateParam(param1,param2,param3):
      p = param3.split("=")
      listParam[p[0]]=p[1].strip()
 		
+def getYouTubeURL(url) :
+    newUrl = url
+    if url.find("://") != -1:
+        ydl = youtube_dl.YoutubeDL({
+           "outtmpl" : "%(id)s%(ext)s",
+           "quiet" : False,
+           "verbose" : True,
+           "debug_printtraffic" : True
+              })
+        with ydl:
+            result = ydl.extract_info(url,download = False)
+            if 'entries' in result:
+            # Can be a playlist or a list of videos
+               video = result['entries'][0]
+            else:
+               # Just a video
+               video = result
+               newUrl = video['url']
+        p = newUrl.split(" ")
+        newUrl=p[0]
+    return newUrl
+   
 def readYoutube(leFile) :
 # SendKill()
  global soundLevel
@@ -216,9 +239,11 @@ def readYoutube(leFile) :
  if posURL!=-1 :
    if len(lf)>=posURL+1 : 
       if lf[posURL+1].strip().startswith("//"):
-         ligne = 'xterm -bg black  -fg black -fullscreen -e youtube "'+http+':'+lf[posURL+1].strip()+'" '+str(soundLevel)+' '+listParam['YOUTUBEQUALITY']
+#         ligne = 'xterm -bg black  -fg black -fullscreen -e youtube "'+http+':'+lf[posURL+1].strip()+'" '+str(soundLevel)+' '+listParam['YOUTUBEQUALITY']
+         ligne= 'xterm -fullscreen -bg black -fg black -e omxplayer -o both --vol '+str(soundLevel)+' "'+getYouTubeURL(http+':'+lf[posURL+1].strip())+'"'
          print ligne  
          subprocess.call(ligne,  shell=True)  
+          
  
 def isDoubleAdd(leFile) :
     global lastId

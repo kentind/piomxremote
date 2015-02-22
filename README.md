@@ -21,9 +21,8 @@ Download the plug and play image : http://www.kentind.ovh/
 
 Download the folder "SERVER"
 
-Place "youtube" and "dbuscontrol.sh" in /usr/bin/ and give execute permission:
+Place "dbuscontrol.sh" in /usr/bin/ and give execute permission:
 ```
-    chmod + x /usr/bin/youtube
     chmod + x /usr/bin/dbuscontrol.sh
 ```
 
@@ -35,7 +34,8 @@ Place "PORC" folder in /home/pi/ and give execute permission:
 
 You need to install youtube-dl:
 ```
-    sudo apt-get install youtube-dl
+    sudo apt-get install python-pip
+    sudo pip install youtube-dl
 ```
 For comfort;) (but inevitably required) :
 ```
