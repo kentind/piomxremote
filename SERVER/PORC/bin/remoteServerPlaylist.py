@@ -204,6 +204,7 @@ def getYouTubeURL(url) :
     newUrl = url
     if url.find("://") != -1:
         ydl = youtube_dl.YoutubeDL({
+        'format': listParam['YOUTUBEQUALITY']+'/best',
            "outtmpl" : "%(id)s%(ext)s",
            "quiet" : False,
            "verbose" : True,
